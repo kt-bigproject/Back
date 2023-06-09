@@ -94,9 +94,10 @@ SITE_ID = 1
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com' #new
 EMAIL_PORT = 587 #new
-EMAIL_HOST_USER = 'quadoh@gmail.com'  #new
-EMAIL_HOST_PASSWORD = "pafqmerzjbtedhgg" #new
+EMAIL_HOST_USER = my_setting.EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = my_setting.EMAIL_HOST_PASSWORD
 EMAIL_USE_TLS = True #new
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -142,13 +143,19 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # 회원가입시 필수 이메일을 필수항목으로 만들기
 ACCOUNT_EMAIL_REQUIRED = True  
 # 이메일 인증 받기
-ACCOUNT_EMAIL_VERIFICATION = 'optional'
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 # mandatory
 # 이메일 인증 링크 클릭시 홈페이지로 이동
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+
+ACCOUNT_EMAIL_SUBJECT_PREFIX = '[이메일 인증] '
+
+# EMAIL 유효 기간
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
 
 # 로그인 성공후 이동하는 URL
 LOGIN_REDIRECT_URL = '/accounts/logout'
 
 # 로그아웃시 이동하는 URL
 LOGOUT_REDIRECT_URL = '/accounts/login'
+
