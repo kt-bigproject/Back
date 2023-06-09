@@ -24,6 +24,6 @@ urlpatterns = [
     path("email-confirmation-done/",
          TemplateView.as_view(template_name="coplate/email-confirmation-done.html"),
          name="account_email_confirmation_done"),
-    path('account/', include('allauth.urls')),
+    path('accounts/', include('allauth.urls')),
     
 ]
