@@ -1,4 +1,4 @@
-# views.py
+    # views.py
 from django.http import HttpResponseRedirect
 from rest_framework.exceptions import NotFound
 from rest_framework.views import APIView
