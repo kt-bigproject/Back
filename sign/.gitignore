@@ -9,4 +9,4 @@ local_settings.py
 db.sqlite3
 db.sqlite3-journal
 media
-my_setting.py
+my_settings.py
