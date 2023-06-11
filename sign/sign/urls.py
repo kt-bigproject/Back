@@ -14,16 +14,36 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.utils.translation import gettext_lazy as _
+from rest_auth.registration.views import VerifyEmailView, RegisterView
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.views.generic import TemplateView
+from sign.views import ConfirmEmailView
+
+from rest_auth.views import (
+    LoginView, LogoutView, PasswordChangeView,
+    PasswordResetView, PasswordResetConfirmView,
+)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     # allauth
-    path("email-confirmation-done/",
-         TemplateView.as_view(template_name="coplate/email-confirmation-done.html"),
-         name="account_email_confirmation_done"),
     path('accounts/', include('allauth.urls')),
-    
+
+    # 로그인
+    path('rest-auth/login', LoginView.as_view(), name='rest_login'),
+    path('rest-auth/logout', LogoutView.as_view(), name='rest_logout'),
+    path('rest-auth/password/change', PasswordChangeView.as_view(), name='rest_password_change'),
+    path('rest-auth/', include('rest_auth.urls'), name='rest_auth'),
+
+    # 회원가입
+    path('rest-auth/registration', include('rest_auth.registration.urls'), name='rest_register'),
+    path('login/success/', LoginView.as_view(), name='rest_login_success'),
+    # 이메일 관련 필요
+    path('accounts/allauth/', include('allauth.urls')),
+    # 유효한 이메일이 유저에게 전달
+    re_path(r'^account-confirm-email/$', VerifyEmailView.as_view(), name='account_email_verification_sent'),
+    # 유저가 클릭한 이메일(=링크) 확인
+    re_path(r'^account-confirm-email/(?P<key>[-:\w]+)/$', ConfirmEmailView.as_view(), name='account_confirm_email'),
 ]
