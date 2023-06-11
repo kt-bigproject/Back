@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 from . import my_setting
-
+from django.utils.translation import gettext_lazy as _
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -38,9 +38,15 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+
+    'django.contrib.sites',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth.registration',
 ]
 
 MIDDLEWARE = [
@@ -58,7 +64,7 @@ ROOT_URLCONF = "sign.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / 'templates' , BASE_DIR / 'templates',' account'],
+        "DIRS": [BASE_DIR / 'template' , BASE_DIR / 'templates',' account'],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -90,14 +96,7 @@ AUTHENTICATION_BACKENDS =[
 ]
 
 SITE_ID = 1
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com' #new
-EMAIL_PORT = 587 #new
-EMAIL_HOST_USER = my_setting.EMAIL_HOST_USER
-EMAIL_HOST_PASSWORD = my_setting.EMAIL_HOST_PASSWORD
-EMAIL_USE_TLS = True #new
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -141,21 +140,34 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # 회원가입시 필수 이메일을 필수항목으로 만들기
+
 ACCOUNT_EMAIL_REQUIRED = True  
 # 이메일 인증 받기
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-# mandatory
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 # 이메일 인증 링크 클릭시 홈페이지로 이동
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
-
-ACCOUNT_EMAIL_SUBJECT_PREFIX = '[이메일 인증] '
-
-# EMAIL 유효 기간
-ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
 
 # 로그인 성공후 이동하는 URL
 LOGIN_REDIRECT_URL = '/accounts/logout'
 
 # 로그아웃시 이동하는 URL
-LOGOUT_REDIRECT_URL = '/accounts/login'
+LOGOUT_REDIRECT_URL = '/accounts/login' 
 
+# gmail의 gmail email
+EMAIL_HOST_USER = 'a01034613077@gmail.com'
+
+# 구글 앱 비밀번호
+EMAIL_HOST_PASSWORD = 'dxelesgrswyeglzi'
+
+# 보내지는 EMAIL 앞에 붙는 이름
+ACCOUNT_EMAIL_SUBJECT_PREFIX = '[이메일 인증] '
+
+# EMAIL 유효 기간
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
+
+# 사용할 도메인 주소
+EMAIL_HOST = 'smtp.gmail.com'
+
+EMAIL_PORT= 587
+
+EMAIL_USE_TLS  = True
