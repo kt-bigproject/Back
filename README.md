@@ -5,6 +5,7 @@ pip install django-allauth django-rest-auth djangorestframework djangorestframew
 
 # setting.py와 같은 폴더에 my_setting.py를 추가해주세요
 #### my_setting.py
+```
 DATABASES = {
     'default' : {
         'ENGINE': 'django.db.backends.mysql',
@@ -16,4 +17,5 @@ DATABASES = {
     }
 }
 SECRET_KEY = "django-insecure-+d@0e(gyc7+e8yl6=5*jab^6hcj=*bj^=ub!xcnw$$h3&n%r4o"
+```
 ### SECRET_KEY는 SETTING.py에 있는 SECRET_KEY를 복사해서 붙여넣어 주세요
