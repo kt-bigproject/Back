@@ -17,6 +17,5 @@ DATABASES = {
         'PORT': '3306',
     }
 }
-
-### SECRET_KEY는 SETTING.py에 있는 SECRET_KEY를 복사해서 붙여넣어 주세요
 SECRET_KEY = "django-insecure-+d@0e(gyc7+e8yl6=5*jab^6hcj=*bj^=ub!xcnw$$h3&n%r4o"
+### SECRET_KEY는 SETTING.py에 있는 SECRET_KEY를 복사해서 붙여넣어 주세요
