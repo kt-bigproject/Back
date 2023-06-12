@@ -1,0 +1,14 @@
+<!-- predict_page.html -->
+
+{% block content %}
+  <div class="container">
+    <form method="POST" enctype="multipart/form-data" action="{% url 'predict' %}">
+      {% csrf_token %}
+      업로드 :
+      <input name="image" type="file">
+      <br><br>
+      <input class="btn btn-primary" type="submit" value="예측하기">
+    </form>
+  </div>
+{% endblock %}
+
