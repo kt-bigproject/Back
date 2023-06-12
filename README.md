@@ -3,9 +3,7 @@
 # 실행할 가상환경에서 작성 해주세요.
 pip install django-allauth django-rest-auth djangorestframework djangorestframework-jwt django-filter
 
-# setting.py와 같은 폴더에 
-#### my_setting.py를 추가해주세요
-#### my_setting.py 내용
+# setting.py와 같은 폴더에 my_setting.py를 추가해주세요
 #### my_setting.py
 DATABASES = {
     'default' : {
