@@ -51,9 +51,10 @@ INSTALLED_APPS = [
     'rest_auth.registration',
     
     'django_filters',
+    "corsheaders",
 
     'predict',
-    'practice',
+    'practice',	
     
 ]
 
@@ -72,6 +73,16 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",	
+]	
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
+
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:3000",
+    "http://127.0.0.1:8000",
 ]
 
 ROOT_URLCONF = "sign.urls"
