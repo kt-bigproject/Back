@@ -1,3 +1,4 @@
+# views.py
 from .models import Blog
 from .serializer import BlogSerializer
 from rest_framework import viewsets
