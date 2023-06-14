@@ -1,6 +1,6 @@
 from pathlib import Path
 from datetime import timedelta
-from . import my_setting
+from . import my_settings
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -135,9 +135,9 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # my_setting.py
-DATABASES = my_setting.DATABASES
+DATABASES = my_settings.DATABASES
 
-SECRET_KEY = my_setting.SECRET_KEY
+SECRET_KEY = my_settings.SECRET_KEY
 
 
 
