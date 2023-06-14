@@ -1,4 +1,4 @@
 from django.contrib import admin
-from .models import PracticeContent	# 추가
+from .models import SentenceContent	# 추가
 
-admin.site.register(PracticeContent)
+admin.site.register(SentenceContent)
