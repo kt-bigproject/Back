@@ -8,15 +8,7 @@ from rest_framework.response import Response
 from predict.serializers import MyPredictSerializer
 import os
 
-font_select = {
-    # 페이지에서 입력 받는 값으로 변경
-    # 예시) '폰트이름' : '폰트의 모델 가중치 이름'
-    'lv01' : 'KyoboHandwriting2019_beginner_96',
-    'lv02' : 'KyoboHandwriting2019_beginner_96',
-    'lv03' : 'KyoboHandwriting2019_beginner_96',
-    'lv04' : 'KyoboHandwriting2019_beginner_96',
-    'lv05' : 'KyoboHandwriting2019_beginner_96',
-}
+
 # 여기 있어야할거
 # senteces랑 font, 사용자 이미지파일 필요함
 # 첫번째로 font 선택, 문장 표시, 이미지파일 업로드
@@ -26,21 +18,33 @@ font_select = {
 # mdb파일로 만들기
 def to_mdb():
     current_path = os.path.dirname(os.path.abspath(__file__))
+
     command = "python create_lmdb_dataset.py --inputPath input/test/ --gtFile input/gt.txt --outputPath data/"
+
     subprocess.run(command, cwd=current_path)
 
-
+font_select = {
+    # 페이지에서 입력 받는 값으로 변경
+    # 예시) '폰트이름' : '폰트의 모델 가중치 이름'
+    'lv01' : 'KyoboHandwriting2019_beginner_96',
+    'lv02' : 'KyoboHandwriting2019_beginner_96',
+    'lv03' : 'KyoboHandwriting2019_beginner_96',
+    'lv04' : 'KyoboHandwriting2019_beginner_96',
+    'lv05' : 'KyoboHandwriting2019_beginner_96',
+}
 # mdb 폰트 모델에 넣고 돌리기
 def to_predict():
     current_path = os.path.dirname(os.path.abspath(__file__))
-    command = "python test.py --eval_data data/ --workers 0 --batch_size 128 --saved_model models/KyoboHandwriting2019_beginner_96.pth --batch_max_length 25 --imgH 64 --imgW 200 --data_filtering_off --Transformation TPS --FeatureExtraction ResNet --SequenceModeling BiLSTM --Prediction Attn"
-    subprocess.run(command, cwd=current_path)
 
+    # font_select[페이지에서 입력 받는 값으로]
+    command = "python test.py --eval_data data/ --workers 0 --batch_size 128 --saved_model models/"+font_select['lv01']+".pth --batch_max_length 25 --imgH 64 --imgW 200 --data_filtering_off --Transformation TPS --FeatureExtraction ResNet --SequenceModeling BiLSTM --Prediction Attn"
+
+    subprocess.run(command, cwd=current_path)
 
 # model 에서 출력된 txt파일의 정보 띄우기
 def save_the_result():
     current_path = os.path.dirname(os.path.abspath(__file__))
-    txt_path = current_path+"/result/KyoboHandwriting2019_beginner_96.pth/log_evaluation.txt"
+    txt_path = current_path+"/result/"+font_select['lv01']+".pth/log_evaluation.txt"
     with open(txt_path, "r") as file:
         lines = file.readlines()
         
