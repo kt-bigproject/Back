@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'sign',
     'blog',
     'practice',
+    'predict',
 
 ]
 
@@ -144,7 +145,17 @@ DATABASES = my_settings.DATABASES
 
 SECRET_KEY = my_settings.SECRET_KEY
 
+REST_FRAMEWORK = {
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.MultiPartParser',
+        'rest_framework.parsers.JSONParser',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES':[
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
 
+    ],
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+}
 
 REST_USE_JWT = True
 
