@@ -1,0 +1,8 @@
+<div>
+    데이터를 업로드하세요! <br>
+    <form action="{% url 'predict:image_upload' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="등록하기">
+    </form>
+</div>

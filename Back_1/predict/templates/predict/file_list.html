@@ -1,0 +1,16 @@
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Image</th>
+        <th>Upload Date & Time</th>
+    </tr>
+    {% for image_file in image_files %}
+        <tr>
+            <td>{{ image_file.id }}</td>
+            <td>{{ image_file.title }}</td>
+            <td><img src="{{ image_file.image.url }}" alt="Image"></td>
+            <td>{{ image_file.created_at }}</td>
+        </tr>
+    {% endfor %}
+</table>
