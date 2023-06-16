@@ -9,6 +9,7 @@ class PracticeContentView(viewsets.ModelViewSet):
     serializer_class = PracticeContentSerializer
     queryset = PracticeContent.objects.all()
     
+    
 from .serializers import SentenceContentSerializer
 from .models import SentenceContent
 
@@ -24,9 +25,11 @@ class SentenceContentView(viewsets.ModelViewSet):
 
 # mdb파일로 만들기
 def to_mdb():
-    current_path = os.path.dirname(os.path.abspath(__file__))
-
-    command = "python create_lmdb_dataset.py --inputPath input/test/ --gtFile input/gt.txt --outputPath data/"
+    # current_path = os.path.dirname(os.path.abspath(__file__))
+    current_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    # C:\Users\User\Desktop\Big\Git\Back\Back_1\practice\
+    
+    command = 'python /practice/create_lmdb_dataset.py --inputPath input/test/ --gtFile input/gt.txt --outputPath data/'
 
     subprocess.run(command, cwd=current_path)
 
@@ -71,13 +74,11 @@ def save_the_result():
 class PredictAPIView(viewsets.ModelViewSet):
     queryset = Predict_Result.objects.all()
     serializer_class = MyPredictSerializer
-    to_mdb()
-    to_predict()
-    save_the_result()
+    # to_mdb()
+    # to_predict()
+    # save_the_result()
 
     def post(self, request, format=None):
-        # to_mdb()
-        # to_predict()
         result = Predict_Result.objects.last()
         serialized_result = MyPredictSerializer(result)
 
