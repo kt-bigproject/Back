@@ -1,10 +1,11 @@
 from pathlib import Path
 from datetime import timedelta
-from . import my_settings
+import my_settings
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -41,15 +42,16 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth.registration',
+
     'sign',
     'blog',
     'practice',
-    'predict',
 
 ]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+PRACTICE_MEDIA_ROOT = os.path.join(BASE_DIR, 'practice', 'media')
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",	
