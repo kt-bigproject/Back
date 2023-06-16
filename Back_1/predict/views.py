@@ -6,6 +6,7 @@ from rest_framework.views import APIView
 from rest_framework import viewsets
 from rest_framework.response import Response
 from predict.serializers import MyPredictSerializer
+import os
 
 
 # 여기 있어야할거
@@ -16,17 +17,20 @@ from predict.serializers import MyPredictSerializer
 
 # mdb파일로 만들기
 def to_mdb():
-    command = "python C:/Users/User/Desktop/Big/Git/Back/Back_1/predict/create_lmdb_dataset.py --inputPath C:/Users/User/Desktop/Big/Git/Back/Back_1/predict/media/ --gtFile C:/Users/User/Desktop/Big/Git/Back/Back_1/predict/input/gt.txt --outputPath C:/Users/User/Desktop/Big/Git/Back/Back_1/predict/data/"
-    subprocess.run(command)
+    current_path = os.path.dirname(os.path.abspath(__file__))
+    command = "python create_lmdb_dataset.py --inputPath input/ --gtFile input/gt.txt --outputPath data/"
+    subprocess.run(command, cwd=current_path)
 
 # mdb 폰트 모델에 넣고 돌리기
 def to_predict():
-    command = "python C:/Users/User/Desktop/Big/Git/Back/Back_1/predict/test.py --eval_data C:/Users/User/Desktop/Big/Git/Back/Back_1/predict/data --workers 0 --batch_size 128 --saved_model C:/Users/User/Desktop/Big/Git/Back/Back_1/predict/models/KyoboHandwriting2019_beginner_96.pth --batch_max_length 25 --imgH 64 --imgW 200 --data_filtering_off --Transformation TPS --FeatureExtraction ResNet --SequenceModeling BiLSTM --Prediction Attn"
-    subprocess.run(command)
+    current_path = os.path.dirname(os.path.abspath(__file__))
+    command = "python test.py --eval_data data/ --workers 0 --batch_size 128 --saved_model /models/KyoboHandwriting2019_beginner_96.pth --batch_max_length 25 --imgH 64 --imgW 200 --data_filtering_off --Transformation TPS --FeatureExtraction ResNet --SequenceModeling BiLSTM --Prediction Attn"
+    subprocess.run(command, cwd=current_path)
 
 # model 에서 출력된 txt파일의 정보 띄우기
 def save_the_result():
-    txt_path = "C:/Users/User/Desktop/Big/Git/Back/Back_1/predict/result/KyoboHandwriting2019_beginner_96.pth/log_evaluation.txt"
+    current_path = os.path.dirname(os.path.abspath(__file__))
+    txt_path = current_path+"/result/KyoboHandwriting2019_beginner_96.pth/log_evaluation.txt"
     with open(txt_path, "r") as file:
         lines = file.readlines()
 
@@ -59,11 +63,11 @@ class PredictAPIView(viewsets.ModelViewSet):
     serializer_class = MyPredictSerializer
     to_mdb()
     to_predict()
+    # save_the_result()
 
     def post(self, request, format=None):
         # to_mdb()
         # to_predict()
-        save_the_result()
         result = Predict_Result.objects.last()
         serialized_result = MyPredictSerializer(result)
 
