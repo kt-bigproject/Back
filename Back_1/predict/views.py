@@ -27,10 +27,10 @@ font_select = {
     # 페이지에서 입력 받는 값으로 변경
     # 예시) '폰트이름' : '폰트의 모델 가중치 이름'
     'lv01' : 'KyoboHandwriting2019_beginner_96',
-    'lv02' : 'KyoboHandwriting2019_beginner_96',
-    'lv03' : 'KyoboHandwriting2019_beginner_96',
-    'lv04' : 'KyoboHandwriting2019_beginner_96',
-    'lv05' : 'KyoboHandwriting2019_beginner_96',
+    'lv02' : 'nanum_slow_standard_93',
+    'lv03' : 'ChosunCentennial_intermediate_96',
+    'lv04' : 'KyoboHandwriting2020pdy_expert_98',
+    'lv05' : 'KCC-Ahnjunggeun_art_98',
 }
 # mdb 폰트 모델에 넣고 돌리기
 def to_predict():
