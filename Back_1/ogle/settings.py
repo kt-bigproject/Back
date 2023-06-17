@@ -1,6 +1,6 @@
 from pathlib import Path
 from datetime import timedelta
-from . import my_settings
+import my_settings
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth.registration',
+
     'sign',
     'blog',
     'practice',

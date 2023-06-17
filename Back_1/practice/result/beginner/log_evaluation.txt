@@ -1,0 +1,130 @@
+dataset_root:    C:\Users\User\Desktop\Back_1\practice/data/	 dataset: /
+sub-directory:	/.	 num samples: 1
+Batch 1:
+  Prediction: 나뜻소통, Ground Truth: 나눔손글씨 펜체, Confidence: 0.0286, 정답여부: False
+0.000
+dataset_root:    C:\Users\User\Desktop\Back_1\practice/data/	 dataset: /
+sub-directory:	/.	 num samples: 1
+Batch 1:
+  Prediction: 나뜻소통, Ground Truth: 나눔손글씨 펜체, Confidence: 0.0286, 정답여부: False
+0.000
+dataset_root:    C:\Users\User\Desktop\Back_1\practice/data/	 dataset: /
+sub-directory:	/.	 num samples: 1
+Batch 1:
+  Prediction: 나뜻소통, Ground Truth: 나눔손글씨 펜체, Confidence: 0.0286, 정답여부: False
+0.000
+dataset_root:    C:\Users\User\Desktop\Back_1\practice/data/	 dataset: /
+sub-directory:	/.	 num samples: 1
+Batch 1:
+  Prediction: 나뜻소통, Ground Truth: 나눔손글씨 펜체, Confidence: 0.0286, 정답여부: False
+0.000
+dataset_root:    C:\Users\User\Desktop\Back_1\practice/data/	 dataset: /
+sub-directory:	/.	 num samples: 1
+Batch 1:
+  Prediction: 나뜻소통, Ground Truth: 나눔손글씨 펜체, Confidence: 0.0286, 정답여부: False
+0.000
+dataset_root:    C:\Users\User\Desktop\Back_1\practice/data/	 dataset: /
+sub-directory:	/.	 num samples: 1
+Batch 1:
+  Prediction: 나뜻소통, Ground Truth: 나눔손글씨 펜체, Confidence: 0.0286, 정답여부: False
+0.000
+dataset_root:    C:\Users\User\Desktop\Back_1\practice/data/	 dataset: /
+sub-directory:	/.	 num samples: 1
+Batch 1:
+  Prediction: 나뜻소통, Ground Truth: 나눔손글씨 펜체, Confidence: 0.0286, 정답여부: False
+0.000
+dataset_root:    C:\Users\User\Desktop\Back_1\practice/data/	 dataset: /
+sub-directory:	/.	 num samples: 1
+Batch 1:
+  Prediction: 나뜻소통, Ground Truth: 나눔손글씨 펜체, Confidence: 0.0286, 정답여부: False
+0.000
+dataset_root:    C:\Users\User\Desktop\Back_1\practice/data/	 dataset: /
+sub-directory:	/.	 num samples: 1
+Batch 1:
+  Prediction: 나뜻소통, Ground Truth: 나눔손글씨 펜체, Confidence: 0.0286, 정답여부: False
+0.000
+dataset_root:    C:\Users\User\Desktop\Back_1\practice/data/	 dataset: /
+sub-directory:	/.	 num samples: 1
+Batch 1:
+  Prediction: 나뜻소통, Ground Truth: 나눔손글씨 펜체, Confidence: 0.0286, 정답여부: False
+0.000
+dataset_root:    C:\Users\User\Desktop\Back_1\practice/data/	 dataset: /
+sub-directory:	/.	 num samples: 1
+Batch 1:
+  Prediction: 나뜻소통, Ground Truth: 나눔손글씨 펜체, Confidence: 0.0286, 정답여부: False
+0.000
+dataset_root:    C:\Users\User\Desktop\Back_1\practice/data/	 dataset: /
+sub-directory:	/.	 num samples: 1
+Batch 1:
+  Prediction: 나뜻소통, Ground Truth: 나눔손글씨 펜체, Confidence: 0.0286, 정답여부: False
+0.000
+dataset_root:    C:\Users\User\Desktop\Back_1\practice/data/	 dataset: /
+sub-directory:	/.	 num samples: 1
+Batch 1:
+  Prediction: 나뜻소통, Ground Truth: 나눔손글씨 펜체, Confidence: 0.0286, 정답여부: False
+0.000
+dataset_root:    C:\Users\User\Desktop\Back_1\practice/data/	 dataset: /
+sub-directory:	/.	 num samples: 1
+Batch 1:
+  Prediction: 나뜻소통, Ground Truth: 나눔손글씨 펜체, Confidence: 0.0286, 정답여부: False
+0.000
+dataset_root:    C:\Users\User\Desktop\Back_1\practice/data/	 dataset: /
+sub-directory:	/.	 num samples: 1
+Batch 1:
+  Prediction: 나뜻소통, Ground Truth: 나눔손글씨 펜체, Confidence: 0.0286, 정답여부: False
+0.000
+dataset_root:    C:\Users\User\Desktop\Back_1\practice/data/	 dataset: /
+sub-directory:	/.	 num samples: 1
+Batch 1:
+  Prediction: 나뜻소통, Ground Truth: 나눔손글씨 펜체, Confidence: 0.0286, 정답여부: False
+0.000
+dataset_root:    C:\Users\User\Desktop\Back_1\practice/data/	 dataset: /
+sub-directory:	/.	 num samples: 1
+Batch 1:
+  Prediction: 나뜻소통, Ground Truth: 나눔손글씨 펜체, Confidence: 0.0286, 정답여부: False
+0.000
+dataset_root:    C:\Users\User\Desktop\Back_1\practice/data/	 dataset: /
+sub-directory:	/.	 num samples: 1
+Batch 1:
+  Prediction: 나뜻소통, Ground Truth: 나눔손글씨 펜체, Confidence: 0.0286, 정답여부: False
+0.000
+dataset_root:    C:\Users\User\Desktop\Back_1\practice/data/	 dataset: /
+sub-directory:	/.	 num samples: 1
+Batch 1:
+  Prediction: 나뜻소통, Ground Truth: 나눔손글씨 펜체, Confidence: 0.0286, 정답여부: False
+0.000
+dataset_root:    C:\Users\User\Desktop\Back_1\practice/data/	 dataset: /
+sub-directory:	/.	 num samples: 1
+Batch 1:
+  Prediction: 나뜻소통, Ground Truth: 나눔손글씨 펜체, Confidence: 0.0286, 정답여부: False
+0.000
+dataset_root:    C:\Users\User\Desktop\Back_1\practice/data/	 dataset: /
+sub-directory:	/.	 num samples: 1
+Batch 1:
+  Prediction: 나뜻소통, Ground Truth: 나눔손글씨 펜체, Confidence: 0.0286, 정답여부: False
+0.000
+dataset_root:    C:\Users\User\Desktop\Back_1\practice/data/	 dataset: /
+sub-directory:	/.	 num samples: 1
+Batch 1:
+  Prediction: 나뜻소통, Ground Truth: 나눔손글씨 펜체, Confidence: 0.0286, 정답여부: False
+0.000
+dataset_root:    C:\Users\User\Desktop\Back_1\practice/data/	 dataset: /
+sub-directory:	/.	 num samples: 1
+Batch 1:
+  Prediction: 나뜻소통, Ground Truth: 나눔손글씨 펜체, Confidence: 0.0286, 정답여부: False
+0.000
+dataset_root:    C:\Users\User\Desktop\Back_1\practice/data/	 dataset: /
+sub-directory:	/.	 num samples: 1
+Batch 1:
+  Prediction: 나뜻소통, Ground Truth: 나눔손글씨 펜체, Confidence: 0.0286, 정답여부: False
+0.000
+dataset_root:    C:\Users\User\Desktop\Back_1\practice/data/	 dataset: /
+sub-directory:	/.	 num samples: 1
+Batch 1:
+  Prediction: 나뜻소통, Ground Truth: 나눔손글씨 펜체, Confidence: 0.0286, 정답여부: False
+0.000
+dataset_root:    C:\Users\User\Desktop\Back_1\practice/data/	 dataset: /
+sub-directory:	/.	 num samples: 1
+Batch 1:
+  Prediction: 나뜻소통, Ground Truth: 나눔손글씨 펜체, Confidence: 0.0286, 정답여부: False
+0.000
