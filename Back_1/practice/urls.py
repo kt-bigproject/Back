@@ -7,10 +7,11 @@ from rest_framework.routers import DefaultRouter
 router = DefaultRouter()
 router.register('sentence', SentenceContentView)
 router.register('upload', PracticeContentView)
-router.register('predict', PredictAPIView, basename='predict')
+# router.register('predict', PredictAPIView, basename='predict')
 
 urlpatterns =[
     path('', include(router.urls)),
+    path('predict/', PredictAPIView.as_view(), name='predict'),
 ]
 
 if 'practice' in settings.INSTALLED_APPS:
