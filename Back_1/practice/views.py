@@ -25,7 +25,7 @@ class SentenceContentView(viewsets.ModelViewSet):
 # 파일 경로 /tab senteces이렇게 된 gt.txt파일을 input폴더 안에 생성하게 해줘야함
 # mdb파일로 만들기
 
-def to_txt():
+def to_txt(font, image_root):
 
     def get_img_name(path):
         path = os.path.join(path,"practice")
@@ -38,10 +38,13 @@ def to_txt():
     current_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     media_path = os.path.join(current_path, "media")
     practice_path = os.path.join(media_path, "practice")
-    file_name = get_img_name(media_path)
+    # file_name = get_img_name(media_path)
+    file_name = image_root
     gt = os.path.join(media_path, 'gt.txt')
 
-    sentence = '감성 글씨'
+    # sentence = '감성 글씨'
+    sentence = font
+    # data = f"{practice_path}\\{file_name}\t{sentence}"
     data = f"{practice_path}\\{file_name}\t{sentence}"
 
     if os.path.exists(gt):
@@ -73,19 +76,25 @@ font_select = {
     'lv05' : 'art',
 }
 # mdb 폰트 모델에 넣고 돌리기
-def to_predict():
-    current_path = os.path.dirname(os.path.abspath(__file__))
+def to_predict(font):
+    current_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     print("Current_path : ", current_path)
     # font_select[페이지에서 입력 받는 값으로]
-    command = f"python {current_path}/test.py --eval_data {current_path}/data/ --workers 0 --batch_size 128 --saved_model {current_path}/models/"+font_select['lv01']+".pth --batch_max_length 25 --imgH 64 --imgW 200 --data_filtering_off --Transformation TPS --FeatureExtraction ResNet --SequenceModeling BiLSTM --Prediction Attn"
+    command = f"python {current_path}/practice/test.py --eval_data {current_path}/data/ --workers 0 --batch_size 128 --saved_model {current_path}/practice/models/"+font_select['lv01']+".pth --batch_max_length 25 --imgH 64 --imgW 200 --data_filtering_off --Transformation TPS --FeatureExtraction ResNet --SequenceModeling BiLSTM --Prediction Attn"
     subprocess.run(command, cwd=current_path)
 
 
 # model 에서 출력된 txt파일의 정보 띄우기
-def save_the_result():
-    current_path = os.path.dirname(os.path.abspath(__file__))
+def save_the_result(font):
+    current_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     txt_path = os.path.join(current_path, "result", font_select['lv01'], "log_evaluation.txt")
     print(txt_path)
+    
+    prediction=''
+    ground_truth=''
+    confidence=''
+    is_correct=''
+    
     with open(txt_path, "r") as file:
         lines = file.readlines()
     for line in lines:
