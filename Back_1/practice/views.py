@@ -39,16 +39,27 @@ def to_txt():
     media_path = os.path.join(current_path, "media")
     practice_path = os.path.join(media_path, "practice")
     file_name = get_img_name(media_path)
+    gt = os.path.join(media_path, 'gt.txt')
 
-    write_file = open(f"{media_path}\gt.txt", 'w')
-    data = f"{practice_path}\{file_name}\t\나눔손글씨펜체"
-    write_file.write(data)
+    sentence = '감성 글씨'
+    data = f"{practice_path}\\{file_name}\t{sentence}"
+
+    if os.path.exists(gt):
+        with open(gt, 'a') as f:
+            f.write('\n')
+            f.write(f'{data}')
+
+    else:
+        with open(gt, 'w') as f:
+            f.write(f'{data}')
+    print(f)
 
 
 def to_mdb():
     current_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     print("Current_path : ", current_path)
     command = f'python {current_path}/practice/create_lmdb_dataset.py --inputPath {current_path}/media/practice/ --gtFile {current_path}/media/gt.txt --outputPath {current_path}/data/'
+
     subprocess.run(command, shell=True)
 
 
@@ -73,10 +84,10 @@ def to_predict():
 # model 에서 출력된 txt파일의 정보 띄우기
 def save_the_result():
     current_path = os.path.dirname(os.path.abspath(__file__))
-    txt_path = current_path+"/result/"+font_select['lv01']+"/log_evaluation.txt"
+    txt_path = os.path.join(current_path, "result", font_select['lv01'], "log_evaluation.txt")
+    print(txt_path)
     with open(txt_path, "r") as file:
         lines = file.readlines()
-        
     for line in lines:
         line = line.strip()
         if line.startswith("Prediction:"):
@@ -84,26 +95,37 @@ def save_the_result():
             ground_truth = line.split(",")[1].split(":")[1].strip()
             confidence = line.split(",")[2].split(":")[1]
             is_correct = line.split(",")[3].split(":")[1].strip()
-    
-   
+
+
     result = Predict_Result(prediction=prediction, ground_truth=ground_truth, confidence=confidence, is_correct=is_correct)
     result.save()
 
 
 class PredictAPIView(APIView):
-    def get(self, request, format=None):
-        result = Predict_Result.objects.last()
-        serialized_result = MyPredictSerializer(result)
-        response_data = {
-            'message': 'Predictions executed successfully.',
-            'data': {
-                'prediction': serialized_result.data['prediction'],
-                'confidence': serialized_result.data['confidence'],
-                'is_correct': serialized_result.data['is_correct'],
-            }
-        }
-        return Response(response_data)
+    # 제일 최신 쿼리 불러오기
+    # def get(self, request, format=None):
+    #     result = Predict_Result.objects.last()
+    #     serialized_result = MyPredictSerializer(result)
+    #     response_data = {
+    #         'message': 'Predictions executed successfully.',
+    #         'data': {
+    #             'prediction': serialized_result.data['prediction'],
+    #             'confidence': serialized_result.data['confidence'],
+    #             'is_correct': serialized_result.data['is_correct'],
+    #         }
+    #     }
+    #     return Response(response_data)
 
-    # @classmethod
-    # def get_extra_actions(cls):
-    #     return []
+          # 모든 쿼리 불러오기
+        def get(self, request, format=None):
+            results = Predict_Result.objects.all()
+            serialized_results = MyPredictSerializer(results, many=True)
+            response_data = {
+                'message': 'Predictions executed successfully.',
+                'data': serialized_results.data
+            }
+            return Response(response_data)
+
+        @classmethod
+        def get_extra_actions(cls):
+            return []
