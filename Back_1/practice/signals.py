@@ -12,10 +12,11 @@ from practice.views import to_predict, to_mdb, to_txt, save_the_result, PredictA
 @receiver(post_save, sender=PracticeContent)
 def process_upload_file(sender, instance, created, **kwargs):
     if created:
-        to_txt()
+        # 완성
+        to_txt('바른 먹거리 풀무원','00000066.png')
         to_mdb()
-        to_predict()
-        save_the_result()
+        to_predict('궁서 체')
+        save_the_result('궁서 체')  
 
         # predict_url = 'http://localhost:8000/practice/predict/'  # PredictAPIView의 URL
         # response = requests.post(predict_url)
