@@ -1,0 +1,38 @@
+dataset_root:    C:\Users\User\Desktop\Big\Git\Back\Back_1/data/	 dataset: /
+sub-directory:	/.	 num samples: 15
+Batch 1:
+  Prediction: 시 시식인인, Ground Truth: 나눔손글씨펜체, Confidence: 0.2770, 정답여부: False
+  Prediction: 시 시식인인, Ground Truth: 감성 글씨, Confidence: 0.2770, 정답여부: False
+  Prediction: 시 시식인인, Ground Truth: 감성 글씨, Confidence: 0.2770, 정답여부: False
+  Prediction: 시 시식인인, Ground Truth: 감성 글씨, Confidence: 0.2770, 정답여부: False
+  Prediction: 시 시식인인, Ground Truth: 감성 글씨, Confidence: 0.2770, 정답여부: False
+  Prediction: 시 시식인인, Ground Truth: 궁서체, Confidence: 0.2770, 정답여부: False
+  Prediction: 시 시식인인, Ground Truth: 바른 먹거리 풀무원, Confidence: 0.2770, 정답여부: False
+  Prediction: 시 시식인인, Ground Truth: 바른 먹거리 풀무원, Confidence: 0.2770, 정답여부: False
+  Prediction: 시 시식인인, Ground Truth: 바른 먹거리 풀무원, Confidence: 0.2770, 정답여부: False
+  Prediction: 시 시식인인, Ground Truth: 바른 먹거리 풀무원, Confidence: 0.2770, 정답여부: False
+  Prediction: 시 시식인인, Ground Truth: 바른 먹거리 풀무원, Confidence: 0.2770, 정답여부: False
+  Prediction: 시 시식인인, Ground Truth: 바른 먹거리 풀무원, Confidence: 0.2770, 정답여부: False
+  Prediction: 시 시식인인, Ground Truth: 바른 먹거리 풀무원, Confidence: 0.2774, 정답여부: False
+  Prediction: 시 시식인인, Ground Truth: 바른 먹거리 풀무원, Confidence: 0.2774, 정답여부: False
+  Prediction: 시 시식인인, Ground Truth: 바른 먹거리 풀무원, Confidence: 0.2774, 정답여부: False
+0.000
+dataset_root:    C:\Users\User\Desktop\Big\Git\Back\Back_1/data/	 dataset: /
+sub-directory:	/.	 num samples: 15
+Batch 1:
+  Prediction: 시 시식인인, Ground Truth: 나눔손글씨펜체, Confidence: 0.2770, 정답여부: False
+  Prediction: 시 시식인인, Ground Truth: 감성 글씨, Confidence: 0.2770, 정답여부: False
+  Prediction: 시 시식인인, Ground Truth: 감성 글씨, Confidence: 0.2770, 정답여부: False
+  Prediction: 시 시식인인, Ground Truth: 감성 글씨, Confidence: 0.2770, 정답여부: False
+  Prediction: 시 시식인인, Ground Truth: 감성 글씨, Confidence: 0.2770, 정답여부: False
+  Prediction: 시 시식인인, Ground Truth: 궁서체, Confidence: 0.2770, 정답여부: False
+  Prediction: 시 시식인인, Ground Truth: 바른 먹거리 풀무원, Confidence: 0.2770, 정답여부: False
+  Prediction: 시 시식인인, Ground Truth: 바른 먹거리 풀무원, Confidence: 0.2770, 정답여부: False
+  Prediction: 시 시식인인, Ground Truth: 바른 먹거리 풀무원, Confidence: 0.2770, 정답여부: False
+  Prediction: 시 시식인인, Ground Truth: 바른 먹거리 풀무원, Confidence: 0.2770, 정답여부: False
+  Prediction: 시 시식인인, Ground Truth: 바른 먹거리 풀무원, Confidence: 0.2770, 정답여부: False
+  Prediction: 시 시식인인, Ground Truth: 바른 먹거리 풀무원, Confidence: 0.2770, 정답여부: False
+  Prediction: 시 시식인인, Ground Truth: 바른 먹거리 풀무원, Confidence: 0.2774, 정답여부: False
+  Prediction: 시 시식인인, Ground Truth: 바른 먹거리 풀무원, Confidence: 0.2774, 정답여부: False
+  Prediction: 시 시식인인, Ground Truth: 바른 먹거리 풀무원, Confidence: 0.2774, 정답여부: False
+0.000
