@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'sign',
     'blog',
     'practice',
+    'temp',
 
 ]
 
