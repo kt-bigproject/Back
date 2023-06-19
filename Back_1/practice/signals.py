@@ -5,8 +5,8 @@ from django.http import HttpRequest, HttpResponseRedirect
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 
-from practice.models import PracticeContent
-from practice.views import to_predict, to_mdb, to_txt, save_the_result, PredictAPIView
+from game.models import PracticeContent
+from game.views import to_predict, to_mdb, to_txt, save_the_result, PredictAPIView
 
 
 @receiver(post_save, sender=PracticeContent)

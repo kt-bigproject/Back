@@ -1,6 +1,6 @@
 from pathlib import Path
 from datetime import timedelta
-import my_settings
+from . import my_settings
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -46,8 +46,7 @@ INSTALLED_APPS = [
     'sign',
     'blog',
     'practice',
-    'temp',
-
+    'game'
 ]
 
 MEDIA_URL = '/media/'

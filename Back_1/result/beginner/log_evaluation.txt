@@ -1,0 +1,20 @@
+dataset_root:    C:\GIT\KT_PROJECT\Back\Back_1/data/	 dataset: /
+sub-directory:	/.	 num samples: 16
+Batch 1:
+  Prediction: 효호생, Ground Truth: 바른 먹거리 풀무원, Confidence: 0.0262, 정답여부: False
+  Prediction: 효호생, Ground Truth: 바른 먹거리 풀무원, Confidence: 0.0262, 정답여부: False
+  Prediction: 효호생, Ground Truth: 바른 먹거리 풀무원, Confidence: 0.0262, 정답여부: False
+  Prediction: 효호생, Ground Truth: 바른 먹거리 풀무원, Confidence: 0.0262, 정답여부: False
+  Prediction: 효호생, Ground Truth: 바른 먹거리 풀무원, Confidence: 0.0262, 정답여부: False
+  Prediction: 효호생, Ground Truth: 바른 먹거리 풀무원, Confidence: 0.0262, 정답여부: False
+  Prediction: 효호생, Ground Truth: 바른 먹거리 풀무원, Confidence: 0.0262, 정답여부: False
+  Prediction: 효호생, Ground Truth: 바른 먹거리 풀무원, Confidence: 0.0262, 정답여부: False
+  Prediction: 효호생, Ground Truth: 바른 먹거리 풀무원, Confidence: 0.0262, 정답여부: False
+  Prediction: 효호생, Ground Truth: 바른 먹거리 풀무원, Confidence: 0.0262, 정답여부: False
+  Prediction: 효호생, Ground Truth: 바른 먹거리 풀무원, Confidence: 0.0262, 정답여부: False
+  Prediction: 효호생, Ground Truth: 바른 먹거리 풀무원, Confidence: 0.0262, 정답여부: False
+  Prediction: 효호생, Ground Truth: 바른 먹거리 풀무원, Confidence: 0.0262, 정답여부: False
+  Prediction: 효호생, Ground Truth: 바른 먹거리 풀무원, Confidence: 0.0262, 정답여부: False
+  Prediction: 효호생, Ground Truth: 바른 먹거리 풀무원, Confidence: 0.0262, 정답여부: False
+  Prediction: 효호생, Ground Truth: 바른 먹거리 풀무원, Confidence: 0.0262, 정답여부: False
+0.000
