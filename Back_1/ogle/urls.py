@@ -3,22 +3,18 @@ from django.contrib import admin
 from django.conf import settings	
 from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter
-from practice import views
+from game import views
 
 router = DefaultRouter()
-# router.register('PracticeContent', views.PracticeContentView, 'PracticeContent')
-router.register('PracticeContent', views.PracticeContentView, basename='PracticeContent')
-
+router.register('PracticeContent', views.PracticeContentView, 'PracticeContent')
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    # path('rest-auth/', include('sign.urls')),
-    path('rest-auth/', include(('sign.urls', 'sign'), namespace='rest_auth')),
+    path('rest-auth/', include('sign.urls')),
     path('blog/', include('blog.urls')),
     # 글씨 연습 이미지 업로드
     path('practice/', include('practice.urls')),
-    # 권한 연습용 임시 게시판
-    path('temp/', include('temp.urls')),
+    path('game/', include('game.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 # + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
