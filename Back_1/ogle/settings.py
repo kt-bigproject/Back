@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'sign',
     'blog',
     'practice',
-    'game'
+    'temp',
+    'game',
 ]
 
 MEDIA_URL = '/media/'

@@ -14,6 +14,7 @@ urlpatterns = [
     path('blog/', include('blog.urls')),
     # 글씨 연습 이미지 업로드
     path('practice/', include('practice.urls')),
+    path('temp/', include('temp.urls')),
     path('game/', include('game.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
