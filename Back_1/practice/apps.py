@@ -6,4 +6,4 @@ class PracticeConfig(AppConfig):
     name = 'practice'
 
     def ready(self):
-        import practice.signals
+        import game.signals
