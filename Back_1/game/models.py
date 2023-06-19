@@ -6,7 +6,15 @@ from django.db import models
 class PracticeContent(models.Model):
     id = models.AutoField(primary_key=True, null=False, blank=False)
     font = models.CharField(max_length=30, null=True)
-    image = models.ImageField(blank=True, null=True, upload_to='practice')
+    image = models.ImageField(blank=True, null=True, upload_to='game')
+    
+class SyllableContent(models.Model):
+    id = models.AutoField(primary_key=True, null=False, blank=False)
+    syllable = models.CharField(max_length=30, null=True)
+    
+class WordContent(models.Model):
+    id = models.AutoField(primary_key=True, null=False, blank=False)
+    word = models.CharField(max_length=30, null=True)
     
 class SentenceContent(models.Model):
     id = models.AutoField(primary_key=True, null=False, blank=False)
@@ -15,8 +23,8 @@ class SentenceContent(models.Model):
 class Predict_Result(models.Model):
     id = models.AutoField(primary_key=True, null=False, blank=False)
     user = models.CharField(max_length=30, null=True)
-    prediction = models.CharField(max_length=500)
-    ground_truth = models.CharField(max_length=500)
-    confidence = models.FloatField()
-    is_correct = models.BooleanField()
+    stage = models.CharField(max_length=20, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    comment = models.CharField(max_length=500, null=True)
+    score = models.FloatField()
 
