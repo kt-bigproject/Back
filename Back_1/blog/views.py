@@ -13,8 +13,8 @@ class BlogViewSet(viewsets.ModelViewSet):
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer
    
-    def perform_create(self, serializer):
-        serializer.save(user = self.request.user)
+    # def perform_create(self, serializer):
+    #     serializer.save(user = self.request.user)
 
 # (댓글) Comment 보여주기, 수정하기, 삭제하기 모두 가능
 class CommentViewSet(viewsets.ModelViewSet):
@@ -23,5 +23,5 @@ class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
 
-    def perform_create(self, serializer):
-        serializer.save(user = self.request.user)
+    # def perform_create(self, serializer):
+    #     serializer.save(user = self.request.user)
