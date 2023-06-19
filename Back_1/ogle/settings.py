@@ -53,6 +53,7 @@ INSTALLED_APPS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 PRACTICE_MEDIA_ROOT = os.path.join(BASE_DIR, 'practice', 'media')
+GAME_MEDIA_ROOT = os.path.join(BASE_DIR, 'game', 'media')
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",	
