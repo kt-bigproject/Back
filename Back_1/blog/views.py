@@ -4,7 +4,7 @@ from rest_framework import viewsets
 # from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from .permissions import IsOwnerOrReadOnly
-from django_filters.rest_ramework import DjangoFilterBackend
+from django_filters.rest_framework import DjangoFilterBackend
 # from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 # (게시글) Blog의 목록, detail 보여주기, 수정하기, 삭제하기 모두 가능
