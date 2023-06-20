@@ -212,10 +212,10 @@ LOGIN_REDIRECT_URL = '/rest-auth/login'
 LOGOUT_REDIRECT_URL = '/rest-auth/logout' 
 
 # gmail의 gmail email
-EMAIL_HOST_USER = 'a01034613077@gmail.com'
+EMAIL_HOST_USER = 'ogleogle1039@gmail.com'
 
 # 구글 앱 비밀번호
-EMAIL_HOST_PASSWORD = 'dxelesgrswyeglzi'
+EMAIL_HOST_PASSWORD = 'xfhlogxivhcxanxt'
 
 # 보내지는 EMAIL 앞에 붙는 이름
 ACCOUNT_EMAIL_SUBJECT_PREFIX = '[이메일 인증] '
