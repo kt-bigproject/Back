@@ -15,8 +15,8 @@ def process_upload_file(sender, instance, created, **kwargs):
         # 완성
         to_txt('가','ga.png')
         to_mdb()
-        to_predict('궁서 체')
-        save_the_result('유저1','1-1','궁서 체')  
+        to_predict('비기너')
+        save_the_result('유저1','1-1','비기너')  
 
         # predict_url = 'http://localhost:8000/practice/predict/'  # PredictAPIView의 URL
         # response = requests.post(predict_url)
