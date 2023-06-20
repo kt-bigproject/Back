@@ -1,6 +1,7 @@
 from django.urls import path, include, re_path
 from rest_auth.views import LoginView, LogoutView, PasswordChangeView
 from rest_auth.registration.views import VerifyEmailView, RegisterView
+from . import views
 from sign.views import ConfirmEmailView
 
 
@@ -12,6 +13,10 @@ urlpatterns = [
 
     # 회원가입
     path('registration/', RegisterView.as_view(), name='rest_register'),
+    path('naver/', views.NaverLogin.as_view(), name='naver'),
+    path('naver/login/', views.naver_login, name='naver_login'),
+    path('naver/callback/', views.naver_callback, name='naver_callback'),
+    path('naver/login/finish/', views.NaverLogin.as_view(), name='naver_login_todjango'),
 
     # 유효한 이메일이 유저에게 전달
     re_path(r'^account-confirm-email/$', VerifyEmailView.as_view(), name='account_email_verification_sent'),

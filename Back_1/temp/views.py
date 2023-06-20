@@ -9,7 +9,6 @@ from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 class TempViewSet(viewsets.ModelViewSet):
     authentication_classes = [JSONWebTokenAuthentication]
-    permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Temp.objects.all()
     serializer_class = TempSerializer
    
