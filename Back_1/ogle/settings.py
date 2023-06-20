@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     'practice',
     'temp',
     'game',
+    
+    'django_filters',
 ]
 
 MEDIA_URL = '/media/'
@@ -230,3 +232,5 @@ EMAIL_USE_TLS  = True
 
 # 네이버 API 키
 NAVER_REST_API_KEY = my_settings.NAVER_REST_API_KEY
+
+SESSION_COOKIE_PATH = "/"
