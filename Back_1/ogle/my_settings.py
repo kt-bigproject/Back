@@ -16,3 +16,5 @@ EMAIL_HOST_USER = 'a01034613077@gmail.com'
 
 # 구글 앱 비밀번호
 EMAIL_HOST_PASSWORD = 'dxelesgrswyeglzi'
+
+NAVER_REST_API_KEY = 'ACTDBDacfC'

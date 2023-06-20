@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'allauth.socialaccount.providers.kakao',
+    'allauth.socialaccount.providers.naver',
+    'allauth.socialaccount.providers.google',
 
     'rest_framework',
     'rest_framework.authtoken',
@@ -186,10 +189,10 @@ JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': timedelta(days=30),
     'JWT_AUDIENCE': None,
     'JWT_ISSUER': None,
-    'JWT_ALLOW_REFRESH': False,
+    'JWT_ALLOW_REFRESH': True,
     'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=30),
-    'JWT_AUTH_HEADER_PREFIX': 'JWT',
-    'JWT_AUTH_COOKIE': None,
+    # 'JWT_AUTH_HEADER_PREFIX': 'JWT',
+    # 'JWT_AUTH_COOKIE': None,
 }
 
 
@@ -201,10 +204,10 @@ ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 
 # 로그인 성공후 이동하는 URL
-LOGIN_REDIRECT_URL = '/accounts/logout'
+LOGIN_REDIRECT_URL = '/rest-auth/login'
 
 # 로그아웃시 이동하는 URL
-LOGOUT_REDIRECT_URL = '/accounts/login' 
+LOGOUT_REDIRECT_URL = '/rest-auth/logout' 
 
 # gmail의 gmail email
 EMAIL_HOST_USER = 'a01034613077@gmail.com'
@@ -224,3 +227,6 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT= 587
 
 EMAIL_USE_TLS  = True
+
+# 네이버 API 키
+NAVER_REST_API_KEY = my_settings.NAVER_REST_API_KEY
