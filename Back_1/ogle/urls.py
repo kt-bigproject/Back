@@ -11,7 +11,8 @@ router.register('PracticeContent', views.PracticeContentView, 'PracticeContent')
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('rest-auth/', include('sign.urls')),
+    # path('rest-auth/', include('sign.urls')),
+    path('api/', include('api.urls')),
     path('blog/', include('blog.urls')),
     # 글씨 연습 이미지 업로드
     path('practice/', include('practice.urls')),
