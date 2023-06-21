@@ -22,6 +22,7 @@ from rest_framework.views import APIView
 from dj_rest_auth.registration.views import SocialLoginView
 from json.decoder import JSONDecodeError
 from allauth.socialaccount.models import SocialAccount
+from rest_framework_simplejwt.tokens import RefreshToken
 
 # Create your views here.
 def email_verification_view(request):
@@ -76,7 +77,17 @@ User = get_user_model()
 
 BASE_URL = 'http://localhost:8000/'
 GOOGLE_CALLBACK_URI = BASE_URL + 'api/google/callback/'
+NAVER_CALLBACK_URI = BASE_URL + 'api/naver/callback/'
 
+def create_user_with_token(request):
+    # 사용자 생성 로직...
+
+    # JWT 토큰 생성
+    refresh = RefreshToken.for_user(user)
+    access_token = str(refresh.access_token)
+
+    # 응답에 토큰 포함하여 반환
+    return Response({"access_token": access_token})
 
 def google_login(request):
     """
@@ -232,24 +243,47 @@ class NaverCallbackAPIView(APIView):
                 }, status=status.HTTP_400_BAD_REQUEST)
 
             try:
+                # data = {'access_token': access_token, 'code': code}
+                # # accept 에는 token 값이 json 형태로 들어온다({"key"}:"token value")
+                # # 여기서 오는 key 값은 authtoken_token에 저장된다.
+                # accept = requests.post(
+                #     f"{BASE_URL}api/naver/login/finish", data=data
+                # )
+                # # 만약 token 요청이 제대로 이루어지지 않으면 오류처리
+                # if accept.status_code != 200:
+                #     return JsonResponse({"error": "Failed to Signin."}, status=accept.status_code)
+                # return Response(accept.json(), status=status.HTTP_200_OK)
+            
                 user = User.objects.get(email=email)
+                # 기존에 가입된 유저의 Provider가 naver이 아니면 에러 발생, 맞으면 로그인
+                # 다른 SNS로 가입된 유저
+                social_user = SocialAccount.objects.get(user=user)
+                if social_user is None:
+                    return JsonResponse({'err_msg': 'email exists but not social user'}, status=status.HTTP_400_BAD_REQUEST)
+                if social_user.provider != 'naver':
+                    return JsonResponse({'err_msg': 'no matching social type'}, status=status.HTTP_400_BAD_REQUEST)
+                # 기존에 Naver로 가입된 유저
                 data = {'access_token': access_token, 'code': code}
-                # accept 에는 token 값이 json 형태로 들어온다({"key"}:"token value")
-                # 여기서 오는 key 값은 authtoken_token에 저장된다.
                 accept = requests.post(
-                    f"{BASE_URL}/api/naver/login/success", data=data
+                    f"{BASE_URL}api/naver/login/finish/", data=data
                 )
-                # 만약 token 요청이 제대로 이루어지지 않으면 오류처리
-                if accept.status_code != 200:
-                    return JsonResponse({"error": "Failed to Signin."}, status=accept.status_code)
-                return Response(accept.json(), status=status.HTTP_200_OK)
+                accept_status = accept.status_code
+                if accept_status != 200:
+                    return JsonResponse({'err_msg2': 'failed to signin'}, status=accept_status)
+
+                accept_json = accept.json()
+                accept_json.pop('user', None)
+                return JsonResponse(accept_json)
 
             except User.DoesNotExist:
+
                 data = {'access_token': access_token, 'code': code}
                 accept = requests.post(
-                    f"{BASE_URL}/api/naver/login/success", data=data
+                    f"{BASE_URL}api/naver/login/finish", data=data
                 )
-                # token 발급
+                print(access_token)
+                print("----------------------------")
+                print(code)
                 return Response(accept.json(), status=status.HTTP_200_OK)
                 
         except:
@@ -260,5 +294,26 @@ class NaverCallbackAPIView(APIView):
    
 class NaverLoginView(SocialLoginView):
     adapter_class = naver_views.NaverOAuth2Adapter
+    callback_url = NAVER_CALLBACK_URI
     client_class = OAuth2Client
+    
+    def get_response_data(self, sociallogin):
+        # 원래 get_response_data() 메서드의 동작을 수행합니다.
+        response = super().get_response_data(sociallogin)
 
+        # 사용자 정보 가져오기
+        user = sociallogin.user
+
+        # JWT 토큰 생성
+        refresh = RefreshToken.for_user(user)
+        token = {
+            'refresh': str(refresh),
+            'access': str(refresh.access_token),
+        }
+        print(token['refresh'])
+        print("----------------------------")
+        print(token['access'])
+        # 응답 데이터에 JWT 토큰 추가
+        response['token'] = token
+
+        return response
