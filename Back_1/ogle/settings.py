@@ -44,8 +44,9 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'rest_framework.authtoken',
-    'rest_framework_simplejwt.token_blacklist',
-    'rest_auth.registration',
+    'rest_framework_simplejwt',
+    'dj_rest_auth',
+    'dj_rest_auth.registration',
 
     'api',
     'blog',
@@ -172,8 +173,6 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny', # 누구나 접근
     ),
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 8,
 
 }
 
@@ -252,3 +251,4 @@ NAVER_CLIENT_SECRET = my_settings.NAVER_CLIENT_SECRET
 SOCIAL_AUTH_GOOGLE_CLIENT_ID = my_settings.SOCIAL_AUTH_GOOGLE_CLIENT_ID
 SOCIAL_AUTH_GOOGLE_SECRET = my_settings.SOCIAL_AUTH_GOOGLE_SECRET
 STATE = my_settings.STATE
+
