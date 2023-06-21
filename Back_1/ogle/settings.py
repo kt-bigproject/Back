@@ -159,9 +159,22 @@ SECRET_KEY = my_settings.SECRET_KEY
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES':[
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+    	'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication'
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        # 'rest_framework.permissions.IsAuthenticated', # 인증된 사용자만 접근
+        # 'rest_framework.permissions.IsAdminUser', # 관리자만 접근
+        'rest_framework.permissions.AllowAny', # 누구나 접근
+    ),
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 8,
+
 }
 
 REST_USE_JWT = True
@@ -206,10 +219,10 @@ ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 
 # 로그인 성공후 이동하는 URL
-LOGIN_REDIRECT_URL = '/rest-auth/login'
+LOGIN_REDIRECT_URL = '/api/login'
 
 # 로그아웃시 이동하는 URL
-LOGOUT_REDIRECT_URL = '/rest-auth/logout' 
+LOGOUT_REDIRECT_URL = '/api/logout' 
 
 # gmail의 gmail email
 EMAIL_HOST_USER = 'ogleogle1039@gmail.com'
@@ -234,3 +247,7 @@ EMAIL_USE_TLS  = True
 NAVER_REST_API_KEY = my_settings.NAVER_REST_API_KEY
 
 SESSION_COOKIE_PATH = "/"
+
+SOCIAL_AUTH_GOOGLE_CLIENT_ID = my_settings.SOCIAL_AUTH_GOOGLE_CLIENT_ID
+SOCIAL_AUTH_GOOGLE_SECRET = my_settings.SOCIAL_AUTH_GOOGLE_SECRET
+STATE = my_settings.STATE
