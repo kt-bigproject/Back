@@ -26,9 +26,9 @@ urlpatterns = [
     path('google/callback/', google_callback, name='google_callback'),  
     path('google/login/finish/', GoogleLogin.as_view(), name='google_login_todjango'),
     # naver 로그인
-    path('naver/login', NaverLoginAPIView.as_view()),
-    path('naver/callback', NaverCallbackAPIView.as_view()),
-    path('naver/login/success', NaverLoginView.as_view()),
+    path('naver/login/', NaverLoginAPIView.as_view()),
+    path('naver/callback/', NaverCallbackAPIView.as_view()),
+    path('naver/login/finish/', NaverLoginView.as_view()),
     
     
 ]
