@@ -1,10 +1,9 @@
 # api/urls.py
 from django.urls import path, re_path
 from . import views
-from rest_auth.views import LoginView, LogoutView, PasswordChangeView
-from rest_auth.registration.views import VerifyEmailView, RegisterView
-from .views import ConfirmEmailView
+from rest_auth.views import PasswordChangeView
 from .views import email_verification_view
+from .views import  google_login, google_callback, GoogleLogin
 
 from rest_framework_simplejwt.views import (
     TokenRefreshView,
@@ -18,8 +17,12 @@ urlpatterns = [
     path('email-verification-success/', views.email_verification_success, name='email-verification-success'),
     path('email-verification-failed/', views.email_verification_failed, name='email-verification-failed'),
     
-    path('login/', LoginView.as_view(), name='rest_login'),
-    path('logout/', LogoutView.as_view(), name='rest_logout'),
     path('password/change/', PasswordChangeView.as_view(), name='rest_password_change'),
     path('', views.getRoutes),
+
+    # google 로그인
+    path('google/login/', google_login, name='google_login'),
+    path('google/callback/', google_callback, name='google_callback'),  
+    path('google/login/finish/', GoogleLogin.as_view(), name='google_login_todjango'),
+    
 ]

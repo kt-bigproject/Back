@@ -5,14 +5,22 @@ from rest_framework.response import Response
 from django.http import JsonResponse
 from api.serializer import MyTokenObtainPairSerializer, RegisterSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
-from rest_framework import generics
+from rest_framework import generics, status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from allauth.account.models import EmailConfirmation, EmailConfirmationHMAC
+from allauth.socialaccount.providers.google import views as google_view
+from allauth.socialaccount.providers.oauth2.client import OAuth2Client
+from ogle import settings
+import requests
+from rest_framework.exceptions import NotFound
 from rest_framework.views import APIView
+from dj_rest_auth.registration.views import SocialLoginView
+from json.decoder import JSONDecodeError
+from allauth.socialaccount.models import SocialAccount
 
 # Create your views here.
 def email_verification_view(request):
@@ -50,27 +58,6 @@ class RegisterView(generics.CreateAPIView):
     permission_classes = (AllowAny,)
     serializer_class = RegisterSerializer
 
-class ConfirmEmailView(APIView):
-    permission_classes = [AllowAny]
-
-    def get(self, request, *args, **kwargs):
-        confirmation = self.get_object()
-        confirmation.confirm(self.request)
-        # 성공 시나리오는 React Router Route가 처리할 것입니다.
-        return Response({'message': 'Email confirmed successfully.'})
-
-    def get_object(self):
-        key = self.kwargs['key']
-        email_confirmation = EmailConfirmationHMAC.from_key(key)
-        if not email_confirmation:
-            raise NotFound('Email confirmation not found.')
-        return email_confirmation
-
-    def get_queryset(self):
-        qs = EmailConfirmation.objects.all_valid()
-        qs = qs.select_related("email_address__user")
-        return qs
-
 
 @api_view(['GET'])
 def getRoutes(request):
@@ -80,3 +67,101 @@ def getRoutes(request):
         '/api/token/refresh/'
     ]
     return Response(routes)
+
+
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
+BASE_URL = 'http://localhost:8000/'
+GOOGLE_CALLBACK_URI = BASE_URL + 'api/google/callback/'
+
+
+def google_login(request):
+    """
+    Code Request
+    """
+    scope = "https://www.googleapis.com/auth/userinfo.email"
+    client_id = settings.SOCIAL_AUTH_GOOGLE_CLIENT_ID
+    return redirect(f"https://accounts.google.com/o/oauth2/v2/auth?client_id={client_id}&response_type=code&redirect_uri={GOOGLE_CALLBACK_URI}&scope={scope}")
+
+
+def google_callback(request):
+    client_id = settings.SOCIAL_AUTH_GOOGLE_CLIENT_ID
+    client_secret = settings.SOCIAL_AUTH_GOOGLE_SECRET
+    code = request.GET.get('code')
+
+    """
+    Access Token Request
+    """
+    token_req = requests.post(
+        f"https://oauth2.googleapis.com/token?client_id={client_id}&client_secret={client_secret}&code={code}&grant_type=authorization_code&redirect_uri={GOOGLE_CALLBACK_URI}&state={settings.STATE}")
+    token_req_json = token_req.json()
+    error = token_req_json.get("error")
+
+    if error is not None:
+        raise JSONDecodeError(error)
+    
+    access_token = token_req_json.get('access_token')
+    """
+    Email Request
+    """
+    email_req = requests.get(
+        f"https://www.googleapis.com/oauth2/v1/tokeninfo?access_token={access_token}")
+    email_req_status = email_req.status_code
+
+    if email_req_status != 200:
+        return JsonResponse({'err_msg1': 'failed to get email'}, status=statistics.HTTP_400_BAD_REQUEST)
+    
+    email_req_json = email_req.json()
+    email = email_req_json.get('email')
+
+    """
+    Signup or Signin Request
+    """
+    try:
+        user = User.objects.get(email=email)
+        # 기존에 가입된 유저의 Provider가 google이 아니면 에러 발생, 맞으면 로그인
+        # 다른 SNS로 가입된 유저
+        social_user = SocialAccount.objects.get(user=user)
+        if social_user is None:
+            return JsonResponse({'err_msg': 'email exists but not social user'}, status=status.HTTP_400_BAD_REQUEST)
+        if social_user.provider != 'google':
+            return JsonResponse({'err_msg': 'no matching social type'}, status=status.HTTP_400_BAD_REQUEST)
+        # 기존에 Google로 가입된 유저
+        data = {'access_token': access_token, 'code': code}
+        accept = requests.post(
+            f"{BASE_URL}api/google/login/finish/", data=data)
+        accept_status = accept.status_code
+        if accept_status != 200:
+            return JsonResponse({'err_msg2': 'failed to signin'}, status=accept_status)
+       
+        accept_json = accept.json()
+        accept_json.pop('user', None)
+        return JsonResponse(accept_json)
+    
+    except User.DoesNotExist:
+        # 기존에 가입된 유저가 없으면 새로 가입
+        data = {'access_token': access_token, 'code': code}
+        accept = requests.post(
+            f"{BASE_URL}api/google/login/finish/", data=data)
+        accept_status = accept.status_code
+        
+        if accept_status != 200:
+            return JsonResponse({'err_msg3': 'failed to signup'}, status=accept_status)
+        
+        accept_json = accept.json()
+        accept_json.pop('user', None)
+        return JsonResponse(accept_json)
+    
+    except SocialAccount.DoesNotExist:
+    	# User는 있는데 SocialAccount가 없을 때 (=일반회원으로 가입된 이메일일때)
+        return JsonResponse({'err_msg': 'email exists but not social user'}, status=status.HTTP_400_BAD_REQUEST)
+
+class GoogleLogin(SocialLoginView):
+    adapter_class = google_view.GoogleOAuth2Adapter
+    callback_url = GOOGLE_CALLBACK_URI
+    client_class = OAuth2Client
+
+
+

@@ -4,7 +4,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'db_39',
         'USER': 'root',
-        'PASSWORD': 'aivle',
+        'PASSWORD': '1234',
         'HOST': 'localhost',
         'PORT': '3306',
     }
@@ -12,9 +12,8 @@ DATABASES = {
 
 SECRET_KEY = "django-insecure-+d@0e(gyc7+e8yl6=5*jab^6hcj=*bj^=ub!xcnw$$h3&n%r4o"
 
-EMAIL_HOST_USER = 'a01034613077@gmail.com'
-
-# 구글 앱 비밀번호
-EMAIL_HOST_PASSWORD = 'dxelesgrswyeglzi'
-
 NAVER_REST_API_KEY = 'ACTDBDacfC'
+
+SOCIAL_AUTH_GOOGLE_CLIENT_ID = "878753331442-vf1sel470reappq52vgmjhufiiehqv1s.apps.googleusercontent.com"
+SOCIAL_AUTH_GOOGLE_SECRET = "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"
+STATE = 'VSDCSDC'
