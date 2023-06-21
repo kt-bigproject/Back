@@ -218,10 +218,10 @@ ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 
 # 로그인 성공후 이동하는 URL
-LOGIN_REDIRECT_URL = '/api/login'
+LOGIN_REDIRECT_URL = '/api/logout'
 
 # 로그아웃시 이동하는 URL
-LOGOUT_REDIRECT_URL = '/api/logout' 
+LOGOUT_REDIRECT_URL = '/api/login' 
 
 # gmail의 gmail email
 EMAIL_HOST_USER = 'ogleogle1039@gmail.com'
