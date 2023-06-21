@@ -1,0 +1,7 @@
+{% load i18n %}{% autoescape off %}{% blocktrans %}Hello from ogle.com!
+Please click on the link below to verify your email address:
+{% endblocktrans %}
+{{ verification_url }}
+{% trans "Thank you" %},
+The ogle.com team
+{% endautoescape %}
