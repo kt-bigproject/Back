@@ -4,6 +4,7 @@ from . import views
 from rest_auth.views import PasswordChangeView
 from .views import email_verification_view
 from .views import  google_login, google_callback, GoogleLogin
+from .views import NaverLoginAPIView, NaverCallbackAPIView, NaverLoginView
 
 from rest_framework_simplejwt.views import (
     TokenRefreshView,
@@ -24,5 +25,10 @@ urlpatterns = [
     path('google/login/', google_login, name='google_login'),
     path('google/callback/', google_callback, name='google_callback'),  
     path('google/login/finish/', GoogleLogin.as_view(), name='google_login_todjango'),
+    # naver 로그인
+    path('naver/login', NaverLoginAPIView.as_view()),
+    path('naver/callback', NaverCallbackAPIView.as_view()),
+    path('naver/login/success', NaverLoginView.as_view()),
+    
     
 ]
