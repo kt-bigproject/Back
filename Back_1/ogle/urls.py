@@ -13,12 +13,12 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     # path('rest-auth/', include('sign.urls')),
     path('api/', include('api.urls')),
-    path('blog/', include('blog.urls')),
+    path('api/blog/', include('blog.urls')),
     # 글씨 연습 이미지 업로드
-    path('practice/', include('practice.urls')),
-    path('temp/', include('temp.urls')),
-    path('game/', include('game.urls')),
-    path('font/', include('font_blog.urls')),
+    path('api/practice/', include('practice.urls')),
+    path('api/temp/', include('temp.urls')),
+    path('api/game/', include('game.urls')),
+    path('api/font/', include('font_blog.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 # + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
