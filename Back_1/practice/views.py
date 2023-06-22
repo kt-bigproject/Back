@@ -9,6 +9,19 @@ import subprocess, os
 class PracticeContentView(viewsets.ModelViewSet):
     serializer_class = PracticeContentSerializer
     queryset = PracticeContent.objects.all()
+        
+    def create(self, request, *args, **kwargs):
+        form_data = request.data
+        sentence = form_data['sentence']
+        image_root = form_data['image_root']
+        font = form_data['font']
+        
+        to_txt(sentence, image_root)
+        to_mdb()
+        to_predict(font)
+        save_the_result(font)
+
+        return super().create(request, *args, **kwargs)
     
     
 from .serializers import SentenceContentSerializer
