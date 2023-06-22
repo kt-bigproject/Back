@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'practice',
     'temp',
     'game',
+    'font_blog',
     
     'django_filters',
 ]
@@ -62,6 +63,16 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 PRACTICE_MEDIA_ROOT = os.path.join(BASE_DIR, 'practice', 'media')
 GAME_MEDIA_ROOT = os.path.join(BASE_DIR, 'game', 'media')
 
+KAKAO_REST_API_KEY = '80561d14b0c44b412ebdce919d97b056'
+SOCIALACCOUNT_PROVIDERS = {
+    'kakao': {
+        'APP': {
+            'client_id': '80561d14b0c44b412ebdce919d97b056',
+            'secret': '926893',
+            'key': ''
+        }
+    }
+}
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",	
     # corshaers는 최상단에
