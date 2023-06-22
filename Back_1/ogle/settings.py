@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'practice',
     'temp',
     'game',
+    'font_blog',
     
     'django_filters',
 ]
