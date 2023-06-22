@@ -19,8 +19,8 @@ class Blog(models.Model):
     # 4. 작성일
     created_at = models.DateTimeField(auto_now_add=True)
     # 5. 작성자
-    user = models.ForeignKey(User, related_name='%(class)s_blog', null=True, blank=True, on_delete=models.CASCADE)
-    # user = models.CharField(max_length=100, null=True, blank=True)
+    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='font_blog_user')
+    #user = models.CharField(max_length=100, null=True, blank=True)
     body = models.TextField()
     file = models.FileField(upload_to='font_data_uploads/', null=True, blank=True)
 
@@ -31,8 +31,8 @@ class Blog(models.Model):
 class Comment(models.Model):
     id = models.AutoField(primary_key=True, null=False, blank=False)
     blog = models.ForeignKey(Blog, null=False, blank=False, on_delete=models.CASCADE)
-    user = models.ForeignKey('auth.User', related_name='%(class)s_comment', null=False, blank=False, on_delete=models.CASCADE)
-    # user = models.CharField(max_length=100, null=False, blank=False)
+    user = models.ForeignKey(User, null=False, blank=False, on_delete=models.CASCADE, related_name='font_blog_comment_user')
+    #user = models.CharField(max_length=100, null=False, blank=False)
     created_at = models.DateField(auto_now_add=True, null=False, blank=False)
     comment = models.TextField()
     file = models.FileField(upload_to='fonts/', null=True, blank=True)
