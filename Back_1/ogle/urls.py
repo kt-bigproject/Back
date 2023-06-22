@@ -18,6 +18,7 @@ urlpatterns = [
     path('practice/', include('practice.urls')),
     path('temp/', include('temp.urls')),
     path('game/', include('game.urls')),
+    path('font/', include('font_blog.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 # + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
