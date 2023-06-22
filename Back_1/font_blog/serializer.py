@@ -9,7 +9,7 @@ class BlogSerializer(serializers.ModelSerializer):
         fields = ['id', 'radio_field', 'title', 'created_at', 'user', 'body', 'file']
 
 class CommentSerializer(serializers.ModelSerializer):
-    user = serializers.ReadOnlyField(source = 'user.nickname')
+    user = serializers.ReadOnlyField(source = 'user.username')
     class Meta:
         model = Comment
         fields = ['id', 'blog', 'user', 'created_at', 'comment', 'file']
