@@ -27,6 +27,7 @@ from allauth.socialaccount.models import SocialAccount
 from rest_framework_simplejwt.tokens import RefreshToken
 from allauth.socialaccount.providers.kakao import views as kakao_views
 from api.models import UserProfile
+import rest_framework_simplejwt as jwt
 
 
 # Create your views here.
@@ -324,14 +325,15 @@ class NaverLoginView(SocialLoginView):
         return response
 
 KAKAO_CALLBACK_URI = BASE_URL + 'api/kakao/callback/'
-
-
 class KakaoSignView(View):
     def get(self, request):
         rest_api_key = settings.KAKAO_REST_API_KEY
         redirect_uri = KAKAO_CALLBACK_URI
         authorization_url = f"https://kauth.kakao.com/oauth/authorize?client_id={rest_api_key}&redirect_uri={redirect_uri}&response_type=code"
         return redirect(authorization_url)
+
+class KakaoException(Exception):
+    pass
 
 class KakaoCallBackView(View):
     def get(self, request):
@@ -341,70 +343,71 @@ class KakaoCallBackView(View):
         data = {
             'grant_type': 'authorization_code',
             'client_id': settings.KAKAO_REST_API_KEY,
-            'redirect_uri': 'http://localhost:8000/api/kakao/callback/',
+            'redirect_uri': KAKAO_CALLBACK_URI,
             'code': auth_code,
         }
 
         token_response = requests.post(kakao_token_api, data=data)
-        # print(token_response.text) # => 토큰들 요청, 여기 resfresh_token, access_token, id_token 이런거 있음
-
         access_token = token_response.json().get('access_token')
         id_token = token_response.json().get('id_token')
 
-        user_info = requests.get('https://kapi.kakao.com/v2/user/me', headers={"Authorization": f"Bearer {access_token}"})
-        # print(user_info.text)
+        # 카카오 계정 정보 가져오기
+        user_info = requests.get('https://kapi.kakao.com/v2/user/me',
+                                 headers={"Authorization": f"Bearer {access_token}"})
         user_info_json = user_info.json()
-
-        # Kakao 계정 정보 추출
         kakao_id = user_info_json['id']
         nickname = user_info_json['properties']['nickname']
         email = user_info_json['kakao_account'].get('email', None)
+
+        if email is None:
+            raise KakaoException()
+
         profile_image = user_info_json['properties'].get('profile_image', None)  # 프로필 이미지 URL 가져오기
 
         try:
-            user_in_db = User.objects.get(email=email)
-            # 기존 사용자가 존재하는 경우, 해당 사용자 정보 업데이트
-            if user_in_db.userprofile.user_type != 'kakao':
-                return redirect("http://127.0.0.1:8000/")
-            else:
-                data = {'Code': auth_code, 'Access_token': access_token, 'Id token' : id_token }
-                accept = requests.post(
-                    f"http://127.0.0.1:8000/api/kakao/login/finish/",
-                    data=data,
-                    headers={"Content-Type": "application/x-www-form-urlencoded"}
+            user = User.objects.get(email=email)
+            user_profile = user.userprofile
 
-                )
+            # 이미 가입된 유저라면
+            if user_profile.user_type != 'kakao':
+                raise KakaoException()
 
-                # print(accept.text)
-                accept_json = accept.json()
-                accept_jwt = accept_json.get("token")
-                # print("accept_jwt : ",accept_jwt)
-                # 프로필 정보 업데이트
-                user_in_db.userprofile.realname = nickname
-                user_in_db.userprofile.user_type = 'kakao'
-                user_in_db.userprofile.profile_image = profile_image
-                user_in_db.userprofile.is_active = True
-                user_in_db.userprofile.save()
+            token = AccessToken.for_user(user)
 
-                print("----------------------------------------------------")
-                print("Code : ", auth_code)
-                print('Access_token : ', access_token)
-                print('Id_token : ', id_token)
+            # 기타 필요한 정보 추가
+            token['username'] = user.username
+            token['email'] = user.email
 
-        except ObjectDoesNotExist:
-            # 사용자가 존재하지 않는 경우, 새로운 사용자 및 UserProfile 생성
-            user = User.objects.create_user(email=email, username=email)
+            refresh = RefreshToken.for_user(user)  # refresh_token 발급
 
-            # UserProfile 정보 생성
-            UserProfile.objects.create(
-                user=user,
-                realname=nickname,
-                user_type='kakao',
-                profile_image=profile_image,
-                kakao_id=kakao_id
-            )
+            # 프로필 정보 업데이트
+            user_profile.realname = nickname
+            user_profile.profile_image = profile_image
+            user_profile.save()
 
-        return redirect('http://localhost:8000/api/')
+            return JsonResponse({
+                "token": str(token),
+                "refresh_token": str(refresh),
+            }, status=200)
+
+        except User.DoesNotExist:
+            # ...
+
+            token = AccessToken.for_user(user)
+
+            # 기타 필요한 정보 추가
+            token['username'] = user.username
+            token['email'] = user.email
+
+            refresh = RefreshToken.for_user(user)  # refresh_token 발급
+
+            return JsonResponse({
+                "token": str(token),
+                "refresh_token": str(refresh),
+            }, status=200)
+        except KakaoException:
+            return redirect("http://127.0.0.1:8000/api/")
+
 
 class KakaoLogin(SocialLoginView):
     adapter_class = kakao_views.KakaoOAuth2Adapter
