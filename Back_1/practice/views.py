@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from .serializers import PracticeContentSerializer, MyPredictSerializer
 from .models import PracticeContent, Predict_Result
 from rest_framework.views import APIView
-import subprocess, os
+import subprocess, os, re
 
 class PracticeContentView(viewsets.ModelViewSet):
     serializer_class = PracticeContentSerializer
@@ -13,10 +13,22 @@ class PracticeContentView(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         form_data = request.data
         sentence = form_data['sentence']
-        image_root = form_data['image_root']
+        image = form_data['image']
+        original_image_name = form_data['image'].name
+        #"font"에 "one", "two", "three", "four", "five"
         font = form_data['font']
         
-        to_txt(sentence, image_root)
+        # base64 데이터에서 이미지 확장자를 추출
+        pattern = r"data:image/(\w+);base64,"
+        match = re.search(pattern, image)
+        if match:
+            image_extension = matc  h.group(1)  # 이미지 확장자 추출
+            image_filename = f"{original_image_name}.{image_extension}"  # 이미지 파일의 이름 설정
+        else:
+            # 기본적으로 이미지 파일의 이름을 설정하거나 에러 처리를 수행
+            image_filename = "image.jpg"
+        
+        to_txt(sentence, image_filename)
         to_mdb()
         to_predict(font)
         save_the_result(font)
