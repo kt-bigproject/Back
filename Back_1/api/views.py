@@ -305,20 +305,53 @@ class NaverCallbackAPIView(APIView):
                 if accept_status != 200:
                     return JsonResponse({'err_msg2': 'failed to signin'}, status=accept_status)
 
+                token = AccessToken.for_user(user)
+
+                    # 기타 필요한 정보 추가
+                token['username'] = user.username
+                token['email'] = user.email
+
+                refresh = RefreshToken.for_user(user)  # refresh_token 발급
+
                 accept_json = accept.json()
-                accept_json.pop('user', None)
-                return JsonResponse(accept_json)
+                accept_json.pop('user', None)            # 프로필 정보 업데이트
+
+
+                return JsonResponse({
+                    "token": str(token),
+                    "refresh_token": str(refresh),
+                }, status=200)
+                # accept_json = accept.json()
+                # accept_json.pop('user', None)
+                # return JsonResponse(accept_json)
 
             except User.DoesNotExist:
 
                 data = {'access_token': access_token, 'code': code}
                 accept = requests.post(
-                    f"{BASE_URL}api/naver/login/finish", data=data
+                    f"{BASE_URL}api/naver/login/finish/", data=data
                 )
-                print(access_token)
-                print("----------------------------")
-                print(code)
-                return Response(accept.json(), status=status.HTTP_200_OK)
+                accept_json = accept.json()
+                accept_json.pop('user', None)
+
+                user = User.objects.get(email=email)
+                
+                token = AccessToken.for_user(user)
+
+                    # 기타 필요한 정보 추가
+                token['username'] = user.username
+                token['email'] = user.email
+
+                refresh = RefreshToken.for_user(user)  # refresh_token 발급
+
+                return JsonResponse({
+                    "token": str(token) ,
+                    "refresh_token": str(refresh),
+                }, status=200)
+                # print(access_token)
+                # print("----------------------------")
+                # print(code)
+                # return Response(accept.json(), status=status.HTTP_200_OK)
                 
         except:
             return JsonResponse({
