@@ -28,7 +28,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from allauth.socialaccount.providers.kakao import views as kakao_views
 from api.models import UserProfile
 import rest_framework_simplejwt as jwt
-
+from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
 
 # Create your views here.
 def email_verification_view(request):
@@ -153,11 +153,24 @@ def google_callback(request):
         accept_status = accept.status_code
         if accept_status != 200:
             return JsonResponse({'err_msg2': 'failed to signin'}, status=accept_status)
-       
+
+        token = AccessToken.for_user(user)
+
+            # 기타 필요한 정보 추가
+        token['username'] = user.username
+        token['email'] = user.email
+
+        refresh = RefreshToken.for_user(user)  # refresh_token 발급
+
         accept_json = accept.json()
-        accept_json.pop('user', None)
-        return JsonResponse(accept_json)
-    
+        accept_json.pop('user', None)            # 프로필 정보 업데이트
+
+
+        return JsonResponse({
+            "token": str(token),
+            "refresh_token": str(refresh),
+        }, status=200)
+
     except User.DoesNotExist:
         # 기존에 가입된 유저가 없으면 새로 가입
         data = {'access_token': access_token, 'code': code}
@@ -172,7 +185,22 @@ def google_callback(request):
         
         accept_json = accept.json()
         accept_json.pop('user', None)
-        return JsonResponse(accept_json)
+
+        user = User.objects.get(email=email)
+        
+        token = AccessToken.for_user(user)
+
+            # 기타 필요한 정보 추가
+        token['username'] = user.username
+        token['email'] = user.email
+
+        refresh = RefreshToken.for_user(user)  # refresh_token 발급
+
+        return JsonResponse({
+            "token": str(token) ,
+            "refresh_token": str(refresh),
+        }, status=200)
+
     
     except SocialAccount.DoesNotExist:
     	# User는 있는데 SocialAccount가 없을 때 (=일반회원으로 가입된 이메일일때)
