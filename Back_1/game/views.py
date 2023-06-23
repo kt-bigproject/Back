@@ -6,7 +6,7 @@ from .serializers import SentenceContentSerializer, SyllableContentSerializer, W
 from .models import PracticeContent, Predict_Result
 from .models import SentenceContent, SyllableContent, WordContent
 from rest_framework.views import APIView
-import subprocess, os
+import subprocess, os, re
 
 class PracticeContentView(viewsets.ModelViewSet):
     serializer_class = PracticeContentSerializer
@@ -24,7 +24,7 @@ class PracticeContentView(viewsets.ModelViewSet):
         pattern = r"data:image/(\w+);base64,"
         match = re.search(pattern, image)
         if match:
-            image_extension = matc  h.group(1)  # 이미지 확장자 추출
+            image_extension = match.group(1)  # 이미지 확장자 추출
             image_filename = f"{original_image_name}.{image_extension}"  # 이미지 파일의 이름 설정
         else:
             # 기본적으로 이미지 파일의 이름을 설정하거나 에러 처리를 수행
