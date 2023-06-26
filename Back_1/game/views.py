@@ -135,7 +135,7 @@ def save_the_result(user, stage, font):
             # prediction = line.split(",")[0].split(":")[1].strip()
             # ground_truth = line.split(",")[1].split(":")[1].strip()
             score = line.split(",")[2].split(":")[1]
-            # is_correct = line.split(",")[3].split(":")[1].strip()
+            is_correct = line.split(",")[3].split(":")[1].strip()
 
 
     result = Predict_Result(
@@ -145,6 +145,7 @@ def save_the_result(user, stage, font):
                             stage = stage, # 페이지에서 입력 받기
                             comment = '',
                             score=score,
+                            is_correct=is_correct
                             )
     result.save()
 
