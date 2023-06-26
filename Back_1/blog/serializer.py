@@ -6,10 +6,10 @@ class BlogSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source = 'user.username', allow_null=True)
     class Meta:
         model = Blog
-        fields = ['id', 'title', 'created_at', 'user', 'body', 'image']
+        fields = '__all__'
 
 class CommentSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source = 'user.username')
     class Meta:
         model = Comment
-        fields = ['id', 'blog', 'user', 'created_at', 'comment']
+        fields = '__all__'

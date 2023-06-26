@@ -16,6 +16,7 @@ class Blog(models.Model):
     user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='blog_user')
     #user = models.CharField(max_length=100, null=True, blank=True)
     body = models.TextField()
+    like = models.IntegerField()
     image = models.ImageField(upload_to='blog_images/', null=True, blank=True)  # 이미지 업로드 필드 추가
 
     def __str__(self):
