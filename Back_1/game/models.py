@@ -27,5 +27,5 @@ class Predict_Result(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     comment = models.CharField(max_length=500, null=True)
     score = models.FloatField()
-    is_correct = models.BooleanField()
+    is_correct = models.BooleanField(null=True)
 
