@@ -37,7 +37,7 @@ class PracticeContentView(viewsets.ModelViewSet):
         image_filename = f"{original_image_name}.{image_extension}"  # 이미지 파일의 이름 설정
         image_file.name = image_filename  # 이미지 파일에 이름 설정
         
-        to_txt(sentence, image_filename)
+        to_txt(sentence, original_image_name)
         to_mdb()
         to_predict(font)
         save_the_result(font)
@@ -123,7 +123,7 @@ def to_predict(font):
 
 
 # model 에서 출력된 txt파일의 정보 띄우기
-def save_the_result(user, stage, font):
+def save_the_result(user):
     current_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     txt_path = os.path.join(current_path, "result", font_select['lv01'], "log_evaluation.txt")
     # txt_path = os.path.join(current_path, "result", font_select[font], "log_evaluation.txt")
@@ -149,8 +149,8 @@ def save_the_result(user, stage, font):
                             # user='user1',
                             user=user,
                             # stage = '1-1', # 페이지에서 입력 받기
-                            stage = '', # 페이지에서 입력 받기
-                            comment = '',
+                            # stage = '', # 페이지에서 입력 받기
+                            # comment = '',
                             score=score,
                             is_correct=is_correct
                             )

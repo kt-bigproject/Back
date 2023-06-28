@@ -3,9 +3,10 @@ DATABASES = {
     'default' : {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'db_39',
-        'USER': 'admin',
-        'PASSWORD': '12345678',
-        'HOST': 'ls-47ab0e27fb770fb5ef6de013bb5d20ec68ebbbe0.cfbesmzpzzdq.ap-northeast-2.rds.amazonaws.com',
+        'USER': 'root',
+        'PASSWORD': 'aivle',
+        # 'HOST': 'ls-47ab0e27fb770fb5ef6de013bb5d20ec68ebbbe0.cfbesmzpzzdq.ap-northeast-2.rds.amazonaws.com',
+        'HOST': 'localhost',
         'PORT': '3306',
     }
 }
