@@ -28,7 +28,8 @@ class Comment(models.Model):
     blog = models.ForeignKey(Blog, null=False, blank=False, on_delete=models.CASCADE)
     user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='blog_comment_user')
     #user = models.CharField(max_length=100, null=False, blank=False)
-    created_at = models.DateField(auto_now_add=True, null=False, blank=False)
+    # created_at = models.DateField(auto_now_add=True, null=False, blank=False)
+    created_at = models.DateTimeField(auto_now_add=True, null=False, blank=False)
     comment = models.TextField()
 
     def __str__(self):

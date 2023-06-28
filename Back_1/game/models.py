@@ -24,9 +24,9 @@ class SentenceContent(models.Model):
 class Predict_Result(models.Model):
     id = models.AutoField(primary_key=True, null=False, blank=False)
     user = models.CharField(max_length=30, null=True)
-    stage = models.CharField(max_length=20, null=True)
+    # stage = models.CharField(max_length=20, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    comment = models.CharField(max_length=500, null=True)
+    # comment = models.CharField(max_length=500, null=True)
     score = models.FloatField()
     is_correct = models.BooleanField(null=True)
 
