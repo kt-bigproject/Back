@@ -14,7 +14,9 @@ class CustomPageNumberPagination(PageNumberPagination):
 # (게시글) Blog의 목록, detail 보여주기, 수정하기, 삭제하기 모두 가능
 class BlogViewSet(viewsets.ModelViewSet):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAdminUserOrReadOnly, IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+    # permission_classes = [IsAdminUserOrReadOnly, IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+    # permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly, IsAdminUserOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
     queryset = Blog.objects.all().order_by('-created_at')
     serializer_class = BlogSerializer
     pagination_class = CustomPageNumberPagination
@@ -25,7 +27,9 @@ class BlogViewSet(viewsets.ModelViewSet):
 # (댓글) Comment 보여주기, 수정하기, 삭제하기 모두 가능
 class CommentViewSet(viewsets.ModelViewSet):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAdminUserOrReadOnly, IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+    # permission_classes = [IsAdminUserOrReadOnly, IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+    # permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly, IsAdminUserOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
     filter_backends = [DjangoFilterBackend]
