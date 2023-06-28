@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Count
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from api.models import User
@@ -18,6 +19,7 @@ class Blog(models.Model):
     body = models.TextField()
     like = models.IntegerField(null=True)
     image = models.ImageField(upload_to='blog_images/', null=True, blank=True)  # 이미지 업로드 필드 추가
+    views = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title
