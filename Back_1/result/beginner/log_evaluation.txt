@@ -294,3 +294,33 @@ Batch 1:
   Prediction: 시, Ground Truth: 가, Confidence: 0.8260, 정답여부: False
   Prediction: 시, Ground Truth: 가, Confidence: 0.8260, 정답여부: False
 0.000
+dataset_root:    C:\Users\User\Desktop\Big\Git\Back\Back_1/data/	 dataset: /
+sub-directory:	/.	 num samples: 2
+Batch 1:
+  Prediction: 생들들들들들들들들들들들들들들들들들들들들들들들들, Ground Truth: 에이블, Confidence: 0.0000, 정답여부: False
+  Prediction: 생들들들들들들들들들들들들들들들들들들들들들들들들, Ground Truth: , Confidence: 0.0000, 정답여부: False
+0.000
+dataset_root:    C:\Users\User\Desktop\Big\Git\Back\Back_1/data/	 dataset: /
+sub-directory:	/.	 num samples: 3
+Batch 1:
+  Prediction: 생들들들들들들들들들들들들들들들들들들들들들들들들, Ground Truth: 에이블, Confidence: 0.0000, 정답여부: False
+  Prediction: 생들들들들들들들들들들들들들들들들들들들들들들들들, Ground Truth: , Confidence: 0.0000, 정답여부: False
+  Prediction: 생들들들들들들들들들들들들들들들들들들들들들들들들, Ground Truth: , Confidence: 0.0000, 정답여부: False
+0.000
+dataset_root:    C:\Users\User\Desktop\Big\Git\Back\Back_1/data/	 dataset: /
+sub-directory:	/.	 num samples: 4
+Batch 1:
+  Prediction: 생들들들들들들들들들들들들들들들들들들들들들들들들, Ground Truth: 에이블, Confidence: 0.0000, 정답여부: False
+  Prediction: 생들들들들들들들들들들들들들들들들들들들들들들들들, Ground Truth: , Confidence: 0.0000, 정답여부: False
+  Prediction: 생들들들들들들들들들들들들들들들들들들들들들들들들, Ground Truth: , Confidence: 0.0000, 정답여부: False
+  Prediction: 생들들들들들들들들들들들들들들들들들들들들들들들들, Ground Truth: , Confidence: 0.0000, 정답여부: False
+0.000
+dataset_root:    C:\Users\User\Desktop\Big\Git\Back\Back_1/data/	 dataset: /
+sub-directory:	/.	 num samples: 5
+Batch 1:
+  Prediction: 생들들들들들들들들들들들들들들들들들들들들들들들들, Ground Truth: 에이블, Confidence: 0.0000, 정답여부: False
+  Prediction: 생들들들들들들들들들들들들들들들들들들들들들들들들, Ground Truth: , Confidence: 0.0000, 정답여부: False
+  Prediction: 생들들들들들들들들들들들들들들들들들들들들들들들들, Ground Truth: , Confidence: 0.0000, 정답여부: False
+  Prediction: 생들들들들들들들들들들들들들들들들들들들들들들들들, Ground Truth: , Confidence: 0.0000, 정답여부: False
+  Prediction: 생들들들들들들들들들들들들들들들들들들들들들들들들, Ground Truth: 에이블, Confidence: 0.0000, 정답여부: False
+0.000
