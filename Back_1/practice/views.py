@@ -15,27 +15,9 @@ class PracticeContentView(viewsets.ModelViewSet):
         form_data = request.data
         sentence = form_data['sentence']
         image = form_data['image']
-        original_image_name = form_data['image'].name
-        #"font"에 "one", "two", "three", "four", "five"
         font = form_data['font']
         
-        # # base64 데이터에서 이미지 확장자를 추출
-        # pattern = r"data:image/(\w+);base64,"
-        # match = re.search(pattern, image)
-        # if match:
-        #     image_extension = match.group(1)  # 이미지 확장자 추출
-        #     image_filename = f"{original_image_name}.{image_extension}"  # 이미지 파일의 이름 설정
-        # else:
-        #     # 기본적으로 이미지 파일의 이름을 설정하거나 에러 처리를 수행
-        #     image_filename = "image.jpg"
-        
-        # 이미지를 파일로 저장
-        image_file = ContentFile(image.read())  # 이미지 데이터를 ContentFile로 변환
-        image_extension = original_image_name.split('.')[-1]  # 이미지 확장자 추출
-        image_filename = f"{original_image_name}.{image_extension}"  # 이미지 파일의 이름 설정
-        image_file.name = image_filename  # 이미지 파일에 이름 설정
-        
-        to_txt(sentence, image_filename)
+        to_txt(sentence, image)
         to_mdb()
         to_predict(font)
         save_the_result(font)
