@@ -149,7 +149,7 @@ def save_the_result(user, stage, font):
                             # user='user1',
                             user=user,
                             # stage = '1-1', # 페이지에서 입력 받기
-                            stage = stage, # 페이지에서 입력 받기
+                            stage = '', # 페이지에서 입력 받기
                             comment = '',
                             score=score,
                             is_correct=is_correct
