@@ -7,6 +7,7 @@ class PracticeContent(models.Model):
     id = models.AutoField(primary_key=True, null=False, blank=False)
     font = models.CharField(max_length=30, null=True)
     image = models.ImageField(blank=True, null=True, upload_to='practice')
+    sentence = models.CharField(max_length=200, null=True)
     
 class SentenceContent(models.Model):
     id = models.AutoField(primary_key=True, null=False, blank=False)
