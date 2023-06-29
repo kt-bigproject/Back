@@ -16,7 +16,6 @@ urlpatterns = [
     path('api/blog/', include('blog.urls')),
     # 글씨 연습 이미지 업로드
     path('api/practice/', include('practice.urls')),
-    path('api/temp/', include('temp.urls')),
     path('api/game/', include('game.urls')),
     path('api/font/', include('font_blog.urls')),
 
