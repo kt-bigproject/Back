@@ -390,13 +390,13 @@ class KakaoSignView(View):
     def get(self, request):
         rest_api_key = settings.KAKAO_REST_API_KEY
         redirect_uri = KAKAO_CALLBACK_URI
-        authorization_url = f"https://kauth.kakao.com/oauth/authorize?client_id={rest_api_key}&redirect_uri={redirect_uri}&response_type=code"
+        authorization_url = f"https://kauth.kakao.com/oauth/authorize?client_id={rest_api_key}&redirect_uri={redirect_uri}&response_type=code&scope=account_email"
         return redirect(authorization_url)
 
 class KakaoException(Exception):
     pass
 
-class KakaoCallBackView(View):
+class KakaoCallBackView(APIView):
     def get(self, request):
         auth_code = request.GET.get('code')
         kakao_token_api = 'https://kauth.kakao.com/oauth/token'
@@ -410,9 +410,11 @@ class KakaoCallBackView(View):
 
         token_response = requests.post(kakao_token_api, data=data)
         access_token = token_response.json().get('access_token')
+
         id_token = token_response.json().get('id_token')
         print("token_response", token_response)
-        print("acces_token : ",access_token)
+        print("access_token: ", access_token)
+
         # 카카오 계정 정보 가져오기
         user_info = requests.get('https://kapi.kakao.com/v2/user/me',
                                  headers={"Authorization": f"Bearer {access_token}"})
@@ -421,54 +423,40 @@ class KakaoCallBackView(View):
         kakao_id = user_info_json['id']
         nickname = user_info_json['properties']['nickname']
         email = user_info_json['kakao_account'].get('email', None)
-
+        print("email", email)
         if email is None:
             raise KakaoException()
 
         profile_image = user_info_json['properties'].get('profile_image', None)  # 프로필 이미지 URL 가져오기
 
         try:
-            user = User.objects.get(email=email)
-            user_profile = UserProfile.objects.get(user=user)
+            user_profile = UserProfile.objects.get(kakao_id=kakao_id)
+            user = user_profile.user
 
             # 이미 가입된 유저라면
             if user_profile.user_type != 'kakao':
                 raise KakaoException()
 
-            token = AccessToken.for_user(user)
-
-            # 기타 필요한 정보 추가
-            token['username'] = user.username
-            token['email'] = user.email
-
-            refresh = RefreshToken.for_user(user)  # refresh_token 발급
+            token, created = Token.objects.get_or_create(user=user)
 
             # 프로필 정보 업데이트
             user_profile.realname = nickname
             user_profile.profile_image = profile_image
             user_profile.save()
 
-            return JsonResponse({
-                "token": str(token),
-                "refresh_token": str(refresh),
+            return Response({
+                "token": token.key,
             }, status=200)
 
-        except User.DoesNotExist:
+        except UserProfile.DoesNotExist:
             # ...
             user = User.objects.create_user(email=email, username=nickname)  # 새로운 유저 생성
             user_profile = UserProfile.objects.create(user=user, user_type='kakao', realname=nickname,
                                                       profile_image=profile_image, kakao_id=kakao_id)  # 프로필 생성
-            token = AccessToken.for_user(user)
+            token, created = Token.objects.get_or_create(user=user)
 
-            # 기타 필요한 정보 추가
-            token['username'] = user.username
-            token['email'] = user.email
-
-            refresh = RefreshToken.for_user(user)  # refresh_token 발급
-
-            return JsonResponse({
-                "token": str(token),
-                "refresh_token": str(refresh),
+            return Response({
+                "token": token.key,
             }, status=200)
         except KakaoException:
             return redirect("http://127.0.0.1:8000/api/")
