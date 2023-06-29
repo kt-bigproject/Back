@@ -5,9 +5,10 @@ from rest_framework import serializers
 class BlogSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source = 'user.username', allow_null=True)
     num_comments = serializers.IntegerField(read_only=True)
+    num_likes = serializers.IntegerField(read_only=True) 
     class Meta:
         model = Blog
-        fields = ['id', 'radio_field', 'title', 'created_at', 'user', 'body', 'file', 'user_id', 'num_comments', 'views']
+        fields = ['id', 'title', 'created_at', 'user', 'body', 'image', 'user_id', 'num_comments', 'views', 'num_likes']
 
 class CommentSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source = 'user.username')
