@@ -1,0 +1,8 @@
+dataset_root:    C:\Users\User\Desktop\Big\Git\Back\Back_1/data/	 dataset: /
+sub-directory:	/.	 num samples: 4
+Batch 1:
+  Prediction: 동스문  특행, Ground Truth: 녹음하다, Confidence: 0.0044, 정답여부: False
+  Prediction: 활, Ground Truth: 가, Confidence: 0.2062, 정답여부: False
+  Prediction: 활, Ground Truth: 가, Confidence: 0.2062, 정답여부: False
+  Prediction: 활, Ground Truth: 가, Confidence: 0.2062, 정답여부: False
+0.000

@@ -16,7 +16,7 @@ class PracticeContentView(viewsets.ModelViewSet):
         sentence = form_data['sentence']
         image = form_data['image']
         font = form_data['font']
-        
+
         to_txt(sentence, image)
         to_mdb()
         to_predict(font)
