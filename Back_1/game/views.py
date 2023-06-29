@@ -100,14 +100,14 @@ def to_predict(font):
     current_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     print("Current_path : ", current_path)
     # font_select[페이지에서 입력 받는 값으로]
-    command = f"python {current_path}/game/test.py --eval_data {current_path}/data/ --workers 0 --batch_size 128 --saved_model {current_path}/game/models/"+font_select['lv01']+".pth --batch_max_length 25 --imgH 64 --imgW 200 --data_filtering_off --Transformation TPS --FeatureExtraction ResNet --SequenceModeling BiLSTM --Prediction Attn"
+    command = f"python {current_path}/game/test.py --eval_data {current_path}/data/ --workers 0 --batch_size 128 --saved_model {current_path}/game/models/"+font_select[font]+".pth --batch_max_length 25 --imgH 64 --imgW 200 --data_filtering_off --Transformation TPS --FeatureExtraction ResNet --SequenceModeling BiLSTM --Prediction Attn"
     subprocess.run(command, cwd=current_path)
 
 
 # model 에서 출력된 txt파일의 정보 띄우기
-def save_the_result(user):
+def save_the_result(font, user):
     current_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    txt_path = os.path.join(current_path, "result", font_select['lv01'], "log_evaluation.txt")
+    txt_path = os.path.join(current_path, "result", font_select[font], "log_evaluation.txt")
     # txt_path = os.path.join(current_path, "result", font_select[font], "log_evaluation.txt")
     print(txt_path)
     
