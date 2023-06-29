@@ -89,11 +89,11 @@ def to_mdb():
 font_select = {
     # 페이지에서 입력 받는 값으로 변경
     # 예시) '폰트이름' : '폰트의 모델 가중치 이름'
-    'lv01' : 'beginner',
-    'lv02' : 'standard',
-    'lv03' : 'intermediate',
-    'lv04' : 'expert',
-    'lv05' : 'art',
+    'one' : 'beginner',
+    'two' : 'standard',
+    'three' : 'intermediate',
+    'four' : 'expert',
+    'five' : 'art',
 }
 # mdb 폰트 모델에 넣고 돌리기
 def to_predict(font):
@@ -105,7 +105,7 @@ def to_predict(font):
 
 
 # model 에서 출력된 txt파일의 정보 띄우기
-def save_the_result(font, user):
+def save_the_result(font):
     current_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     txt_path = os.path.join(current_path, "result", font_select[font], "log_evaluation.txt")
     # txt_path = os.path.join(current_path, "result", font_select[font], "log_evaluation.txt")
@@ -128,8 +128,8 @@ def save_the_result(font, user):
 
 
     result = Predict_Result(
-                            # user='user1',
-                            user=user,
+                            user='user1',
+                            # user=user,
                             # stage = '1-1', # 페이지에서 입력 받기
                             # stage = '', # 페이지에서 입력 받기
                             # comment = '',
