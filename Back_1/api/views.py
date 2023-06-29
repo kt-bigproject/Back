@@ -411,11 +411,13 @@ class KakaoCallBackView(View):
         token_response = requests.post(kakao_token_api, data=data)
         access_token = token_response.json().get('access_token')
         id_token = token_response.json().get('id_token')
-
+        print("token_response", token_response)
+        print("acces_token : ",access_token)
         # 카카오 계정 정보 가져오기
         user_info = requests.get('https://kapi.kakao.com/v2/user/me',
                                  headers={"Authorization": f"Bearer {access_token}"})
         user_info_json = user_info.json()
+        print(user_info_json)
         kakao_id = user_info_json['id']
         nickname = user_info_json['properties']['nickname']
         email = user_info_json['kakao_account'].get('email', None)
@@ -427,7 +429,7 @@ class KakaoCallBackView(View):
 
         try:
             user = User.objects.get(email=email)
-            user_profile = user.userprofile
+            user_profile = UserProfile.objects.get(user=user)
 
             # 이미 가입된 유저라면
             if user_profile.user_type != 'kakao':
@@ -453,7 +455,9 @@ class KakaoCallBackView(View):
 
         except User.DoesNotExist:
             # ...
-
+            user = User.objects.create_user(email=email, username=nickname)  # 새로운 유저 생성
+            user_profile = UserProfile.objects.create(user=user, user_type='kakao', realname=nickname,
+                                                      profile_image=profile_image, kakao_id=kakao_id)  # 프로필 생성
             token = AccessToken.for_user(user)
 
             # 기타 필요한 정보 추가

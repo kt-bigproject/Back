@@ -1,0 +1,17 @@
+dataset_root:    C:\Users\User\Desktop\Big\Git\Back\Back_1/data/	 dataset: /
+sub-directory:	/.	 num samples: 1
+Batch 1:
+  Prediction: 몇통, Ground Truth: 녹음하다, Confidence: 0.0680, 정답여부: False
+0.000
+dataset_root:    C:\Users\User\Desktop\Big\Git\Back\Back_1/data/	 dataset: /
+sub-directory:	/.	 num samples: 8
+Batch 1:
+  Prediction: 오, Ground Truth: 갸, Confidence: 0.1650, 정답여부: False
+  Prediction: 오, Ground Truth: 갸, Confidence: 0.1650, 정답여부: False
+  Prediction: 오, Ground Truth: 갸, Confidence: 0.1650, 정답여부: False
+  Prediction: 몇통, Ground Truth: 녹음하다, Confidence: 0.0680, 정답여부: False
+  Prediction: 총, Ground Truth: 가, Confidence: 0.4504, 정답여부: False
+  Prediction: 총, Ground Truth: 가, Confidence: 0.4504, 정답여부: False
+  Prediction: 총, Ground Truth: 가, Confidence: 0.4504, 정답여부: False
+  Prediction: 오, Ground Truth: 갸, Confidence: 0.1650, 정답여부: False
+0.000
