@@ -475,10 +475,7 @@ class KakaoCallBackView(APIView):
             response.set_cookie('token', str(token))
             response.set_cookie('refresh_token', str(refresh))
 
-            return Response({
-                "token": str(token),
-                "refresh_token": str(refresh),
-            }, status=200)
+            return response
             # return JsonResponse({
             #     "token": str(token),
             #     "refresh_token": str(refresh),
@@ -501,10 +498,7 @@ class KakaoCallBackView(APIView):
             response.set_cookie('token', str(token))
             response.set_cookie('refresh_token', str(refresh))
             
-            return Response({
-                "token": str(token),
-                "refresh_token": str(refresh),
-            }, status=200)
+            return response
 
             # return JsonResponse({
             #     "token": str(token),
