@@ -412,7 +412,7 @@ class KakaoSignView(View):
     def get(self, request):
         rest_api_key = settings.KAKAO_REST_API_KEY
         redirect_uri = KAKAO_CALLBACK_URI
-        authorization_url = f"https://kauth.kakao.com/oauth/authorize?client_id={rest_api_key}&redirect_uri={redirect_uri}&response_type=code&scope=account_email"
+        authorization_url = f"https://kauth.kakao.com/oauth/authorize?client_id={rest_api_key}&redirect_uri={redirect_uri}&response_type=code&scope=&scope=account_email,profile_nickname,profile_image"
         return redirect(authorization_url)
 
 class KakaoException(Exception):
@@ -474,8 +474,11 @@ class KakaoCallBackView(APIView):
             response = HttpResponseRedirect(FRONT_URL)
             response.set_cookie('token', str(token))
             response.set_cookie('refresh_token', str(refresh))
-            
-            return response
+
+            return Response({
+                "token": str(token),
+                "refresh_token": str(refresh),
+            }, status=200)
             # return JsonResponse({
             #     "token": str(token),
             #     "refresh_token": str(refresh),
@@ -498,7 +501,10 @@ class KakaoCallBackView(APIView):
             response.set_cookie('token', str(token))
             response.set_cookie('refresh_token', str(refresh))
             
-            return response
+            return Response({
+                "token": str(token),
+                "refresh_token": str(refresh),
+            }, status=200)
 
             # return JsonResponse({
             #     "token": str(token),
