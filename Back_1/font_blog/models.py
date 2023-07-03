@@ -10,7 +10,7 @@ class Blog(models.Model):
     RADIO_CHOICES = [
         ('normal', '일반'),
         ('announcement', '공지'),
-        ('inquiry', '문의'),
+        ('inquiry', '요청'),
     ]
     # 1. 게시글의 id 값
     id = models.AutoField(primary_key=True, null=False, blank=False)
