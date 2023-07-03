@@ -29,6 +29,7 @@ from allauth.socialaccount.providers.kakao import views as kakao_views
 from api.models import UserProfile
 import rest_framework_simplejwt as jwt
 from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
+from django.http import HttpResponseRedirect
 
 # Create your views here.
 def email_verification_view(request):
@@ -82,6 +83,7 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 BASE_URL = 'http://localhost:8000/'
+FRONT_URL = 'http://localhost:3000/'
 GOOGLE_CALLBACK_URI = BASE_URL + 'api/google/callback/'
 NAVER_CALLBACK_URI = BASE_URL + 'api/naver/callback/'
 
@@ -166,10 +168,16 @@ def google_callback(request):
         accept_json.pop('user', None)            # 프로필 정보 업데이트
 
 
-        return JsonResponse({
-            "token": str(token),
-            "refresh_token": str(refresh),
-        }, status=200)
+        # return JsonResponse({
+        #     "token": str(token),
+        #     "refresh_token": str(refresh),
+        # }, status=200)
+        
+        response = HttpResponseRedirect(FRONT_URL)
+        response.set_cookie('token', str(token))
+        response.set_cookie('refresh_token', str(refresh))
+        
+        return response
 
     except User.DoesNotExist:
         # 기존에 가입된 유저가 없으면 새로 가입
@@ -196,10 +204,15 @@ def google_callback(request):
 
         refresh = RefreshToken.for_user(user)  # refresh_token 발급
 
-        return JsonResponse({
-            "token": str(token) ,
-            "refresh_token": str(refresh),
-        }, status=200)
+        # return JsonResponse({
+        #     "token": str(token) ,
+        #     "refresh_token": str(refresh),
+        # }, status=200)
+        response = HttpResponseRedirect(FRONT_URL)
+        response.set_cookie('token', str(token))
+        response.set_cookie('refresh_token', str(refresh))
+        
+        return response
 
     
     except SocialAccount.DoesNotExist:
@@ -316,11 +329,15 @@ class NaverCallbackAPIView(APIView):
                 accept_json = accept.json()
                 accept_json.pop('user', None)            # 프로필 정보 업데이트
 
-
-                return JsonResponse({
-                    "token": str(token),
-                    "refresh_token": str(refresh),
-                }, status=200)
+                response = HttpResponseRedirect(FRONT_URL)
+                response.set_cookie('token', str(token))
+                response.set_cookie('refresh_token', str(refresh))
+                
+                return response
+                # return JsonResponse({
+                #     "token": str(token),
+                #     "refresh_token": str(refresh),
+                # }, status=200)
                 # accept_json = accept.json()
                 # accept_json.pop('user', None)
                 # return JsonResponse(accept_json)
@@ -344,10 +361,15 @@ class NaverCallbackAPIView(APIView):
 
                 refresh = RefreshToken.for_user(user)  # refresh_token 발급
 
-                return JsonResponse({
-                    "token": str(token) ,
-                    "refresh_token": str(refresh),
-                }, status=200)
+                response = HttpResponseRedirect(FRONT_URL)
+                response.set_cookie('token', str(token))
+                response.set_cookie('refresh_token', str(refresh))
+                
+                return response
+                # return JsonResponse({
+                #     "token": str(token) ,
+                #     "refresh_token": str(refresh),
+                # }, status=200)
                 # print(access_token)
                 # print("----------------------------")
                 # print(code)
@@ -436,28 +458,52 @@ class KakaoCallBackView(APIView):
             # 이미 가입된 유저라면
             if user_profile.user_type != 'kakao':
                 raise KakaoException()
+            token = AccessToken.for_user(user)
 
-            token, created = Token.objects.get_or_create(user=user)
+            # 기타 필요한 정보 추가
+            token['username'] = user.username
+            token['email'] = user.email
+
+            refresh = RefreshToken.for_user(user)  # refresh_token 발급
 
             # 프로필 정보 업데이트
             user_profile.realname = nickname
             user_profile.profile_image = profile_image
             user_profile.save()
 
-            return Response({
-                "token": token.key,
-            }, status=200)
+            response = HttpResponseRedirect(FRONT_URL)
+            response.set_cookie('token', str(token))
+            response.set_cookie('refresh_token', str(refresh))
+            
+            return response
+            # return JsonResponse({
+            #     "token": str(token),
+            #     "refresh_token": str(refresh),
+            # }, status=200)
 
         except UserProfile.DoesNotExist:
             # ...
             user = User.objects.create_user(email=email, username=nickname)  # 새로운 유저 생성
             user_profile = UserProfile.objects.create(user=user, user_type='kakao', realname=nickname,
                                                       profile_image=profile_image, kakao_id=kakao_id)  # 프로필 생성
-            token, created = Token.objects.get_or_create(user=user)
+            token = AccessToken.for_user(user)
 
-            return Response({
-                "token": token.key,
-            }, status=200)
+            # 기타 필요한 정보 추가
+            token['username'] = user.username
+            token['email'] = user.email
+
+            refresh = RefreshToken.for_user(user)  # refresh_token 발급
+            
+            response = HttpResponseRedirect(FRONT_URL)
+            response.set_cookie('token', str(token))
+            response.set_cookie('refresh_token', str(refresh))
+            
+            return response
+
+            # return JsonResponse({
+            #     "token": str(token),
+            #     "refresh_token": str(refresh),
+            # }, status=200)
         except KakaoException:
             return redirect("http://127.0.0.1:8000/api/")
 
