@@ -412,7 +412,7 @@ class KakaoSignView(View):
     def get(self, request):
         rest_api_key = settings.KAKAO_REST_API_KEY
         redirect_uri = KAKAO_CALLBACK_URI
-        authorization_url = f"https://kauth.kakao.com/oauth/authorize?client_id={rest_api_key}&redirect_uri={redirect_uri}&response_type=code&scope=account_email"
+        authorization_url = f"https://kauth.kakao.com/oauth/authorize?client_id={rest_api_key}&redirect_uri={redirect_uri}&response_type=code&scope=&scope=account_email,profile_nickname,profile_image"
         return redirect(authorization_url)
 
 class KakaoException(Exception):
